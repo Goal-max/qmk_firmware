@@ -20,19 +20,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-const uint16_t PROGMEM tab[] = {KC_W, KC_F, COMBO_END};
-const uint16_t PROGMEM esc[] = {LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T), COMBO_END};
-const uint16_t PROGMEM enter[] = {RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
-const uint16_t PROGMEM del[] = {KC_COMM, KC_DOT, COMBO_END};
-const uint16_t PROGMEM wksp1[] = {KC_D, KC_V, COMBO_END};
-const uint16_t PROGMEM wksp2[] = {KC_K, KC_H, COMBO_END};
+const uint16_t PROGMEM tab[] = {KC_F, LCTL_T(KC_S), COMBO_END};
+const uint16_t PROGMEM esc[] = {KC_P, LSFT_T(KC_T), COMBO_END};
+const uint16_t PROGMEM del[] = {KC_L, RSFT_T(KC_N), COMBO_END};
+const uint16_t PROGMEM enter[] = {KC_U, RCTL_T(KC_E), COMBO_END};
+const uint16_t PROGMEM wksp1[] = {LSFT_T(KC_T), KC_G, COMBO_END};
+const uint16_t PROGMEM wksp2[] = {KC_M, RSFT_T(KC_N), COMBO_END};
+const uint16_t PROGMEM wksp3[] = {KC_V, KC_Z, COMBO_END};
+const uint16_t PROGMEM wksp4[] = {KC_K, KC_H, COMBO_END};
 combo_t key_combos[] = {
     COMBO(tab, KC_TAB),
     COMBO(esc, KC_ESC),
-    COMBO(enter, KC_ENT), // keycodes with modifiers are possible too!
     COMBO(del, KC_DEL),
+    COMBO(enter, KC_ENT), // keycodes with modifiers are possible too!
     COMBO(wksp1, LGUI(LCTL(KC_1))),
     COMBO(wksp2, LGUI(LCTL(KC_2))),
+    COMBO(wksp3, LGUI(LCTL(KC_3))),
+    COMBO(wksp4, LGUI(LCTL(KC_4))),
 };
 
 #ifdef OTHER_KEYMAP_C
