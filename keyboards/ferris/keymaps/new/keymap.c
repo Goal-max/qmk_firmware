@@ -33,10 +33,10 @@ combo_t key_combos[] = {
     COMBO(esc, KC_ESC),
     COMBO(del, KC_DEL),
     COMBO(enter, KC_ENT), // keycodes with modifiers are possible too!
-    COMBO(wksp1, LGUI(LCTL(KC_1))),
-    COMBO(wksp2, LGUI(LCTL(KC_2))),
-    COMBO(wksp3, LGUI(LCTL(KC_3))),
-    COMBO(wksp4, LGUI(LCTL(KC_4))),
+    COMBO(wksp1, LGUI(KC_1)),
+    COMBO(wksp2, LGUI(KC_2)),
+    COMBO(wksp3, LGUI(KC_3)),
+    COMBO(wksp4, LGUI(KC_4)),
 };
 
 #ifdef OTHER_KEYMAP_C
