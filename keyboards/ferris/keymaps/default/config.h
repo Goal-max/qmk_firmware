@@ -31,18 +31,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_WHEEL_INTERVAL 50
 // The default is 40
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 100
-#define MK_3_SPEED 
-#define MK_MOMENTARY_ACCEL
-
-#define SPLIT_USB_TIMEOUT 10000
-#define SPLIT_USB_TIMEOUT_POLL 10
 
 // Pick good defaults for enabling homerow modifiers
 #define TAPPING_TERM 200
 #define PERMISSIVE_HOLD
 #define QUICK_TAP_TERM 0
-#define CHORDAL_HOLD 
-#define FLOW_TAP_TERM 150 
 
 // Underglow configuration
 #ifdef RGBLIGHT_ENABLE
