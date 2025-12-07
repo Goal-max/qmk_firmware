@@ -20,10 +20,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
+const uint16_t PROGMEM leftWindow[] = {KC_W, LALT_T(KC_R), COMBO_END};
+const uint16_t PROGMEM rightWindow[] = {KC_Y, RALT_T(KC_I), COMBO_END};
 const uint16_t PROGMEM tab[] = {KC_F, LCTL_T(KC_S), COMBO_END};
 const uint16_t PROGMEM esc[] = {KC_P, LSFT_T(KC_T), COMBO_END};
 const uint16_t PROGMEM del[] = {KC_L, RSFT_T(KC_N), COMBO_END};
 const uint16_t PROGMEM enter[] = {KC_U, RCTL_T(KC_E), COMBO_END};
+
+const uint16_t PROGMEM back[] = {LGUI_T(KC_A), KC_X, COMBO_END};
+const uint16_t PROGMEM scrollUp[] = {LALT_T(KC_R), KC_C, COMBO_END};
+const uint16_t PROGMEM scrollDown[] = {LCTL_T(KC_S), KC_D, COMBO_END};
+const uint16_t PROGMEM forward[] = {LSFT_T(KC_T), KC_V, COMBO_END};
+
+//horizontal combos
 const uint16_t PROGMEM wksp1[] = {LSFT_T(KC_T), KC_G, COMBO_END};
 const uint16_t PROGMEM wksp2[] = {KC_M, RSFT_T(KC_N), COMBO_END};
 const uint16_t PROGMEM wksp3[] = {KC_V, KC_Z, COMBO_END};
@@ -33,6 +42,12 @@ combo_t key_combos[] = {
     COMBO(esc, KC_ESC),
     COMBO(del, KC_DEL),
     COMBO(enter, KC_ENT), // keycodes with modifiers are possible too!
+    COMBO(back, KC_WBAK),
+    COMBO(scrollUp, KC_PGUP), 
+    COMBO(scrollDown, KC_PGDN), 
+    COMBO(forward, KC_WFWD),
+    COMBO(leftWindow, LGUI(KC_LEFT)),
+    COMBO(rightWindow, LGUI(KC_RGHT)),
     COMBO(wksp1, LGUI(KC_1)),
     COMBO(wksp2, LGUI(KC_2)),
     COMBO(wksp3, LGUI(KC_3)),
