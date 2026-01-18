@@ -19,8 +19,11 @@
 // macro code test starts here
 enum custom_keycodes {
     SPL = SAFE_RANGE,
-    PGUP_DBL, 
-    PGDN_DBL,
+    PGUP_DBL, //2 page scroll up 
+    PGDN_DBL, //2 page scroll down
+    PAR, // ()
+    CUR, // {}
+    SQU, // []
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -80,6 +83,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return true;
     	break;
+    //macro for brackets
+    case PAR: 
+ 	if(record->event.pressed) {
+	    SEND_STRING("()" SS_TAP(X_LEFT));
+	} 
+        return true;
+	break;
+    case CUR: 
+ 	if(record->event.pressed) {
+	    SEND_STRING("{}" SS_TAP(X_LEFT));
+	} 
+        return true;
+	break;
+    case SQU: 
+ 	if(record->event.pressed) {
+	    SEND_STRING("[]" SS_TAP(X_LEFT));
+	} 
+        return true;
+	break;
     }
     return true;
 };
@@ -108,6 +130,12 @@ const uint16_t PROGMEM scrollUp[] = {LALT_T(KC_R), KC_C, COMBO_END};
 const uint16_t PROGMEM scrollDown[] = {LCTL_T(KC_S), KC_D, COMBO_END};
 const uint16_t PROGMEM forward[] = {LSFT_T(KC_T), KC_V, COMBO_END};
 
+//right vertical combos
+const uint16_t PROGMEM par[] = {RSFT_T(KC_N), KC_H, COMBO_END};
+const uint16_t PROGMEM cur[] = {RCTL_T(KC_E), KC_COMMA, COMBO_END};
+const uint16_t PROGMEM squ[] = {RALT_T(KC_I), KC_DOT, COMBO_END};
+
+
 //horizontal combos
 const uint16_t PROGMEM wksp1[] = {LSFT_T(KC_T), KC_G, COMBO_END};
 const uint16_t PROGMEM wksp2[] = {KC_M, RSFT_T(KC_N), COMBO_END};
@@ -129,6 +157,10 @@ combo_t key_combos[] = {
     COMBO(wksp2, LGUI(KC_2)),
     COMBO(wksp3, LGUI(KC_3)),
     COMBO(wksp4, LGUI(KC_4)),
+    //right vertical combos
+    COMBO(par, PAR),
+    COMBO(cur, CUR),
+    COMBO(squ, SQU),
 };
 
 #ifdef OTHER_KEYMAP_C
