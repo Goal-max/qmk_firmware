@@ -86,9 +86,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     //macro for brackets
     case PAR: 
 	if (record->event.pressed) {
+	    //if shift pressed
 	    if(get_mods() & MOD_BIT(KC_LSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT));	
 	        SEND_STRING("()" SS_TAP(X_LEFT));
+		add_mods(MOD_BIT(KC_LSFT));
 		return false;
+	    //if no shift pressed
 	    } else {
 	        SEND_STRING("()"); 
 	    }
@@ -97,13 +101,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	break;
     case CUR: 
  	if(record->event.pressed) {
-	    SEND_STRING("{}" SS_TAP(X_LEFT));
+	    if(get_mods() & MOD_BIT(KC_LSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT));	
+	        SEND_STRING("{}" SS_TAP(X_LEFT) SS_TAP(X_ENTER) SS_TAP(X_ENTER) SS_TAP(X_UP));
+		add_mods(MOD_BIT(KC_LSFT));
+		return false;
+	    //if no shift pressed
+	    } else {
+	        SEND_STRING("{}"); 
+	    }
 	} 
         return true;
 	break;
     case SQU: 
  	if(record->event.pressed) {
-	    SEND_STRING("[]" SS_TAP(X_LEFT));
+	    if(get_mods() & MOD_BIT(KC_LSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT));	
+	        SEND_STRING("[]" SS_TAP(X_LEFT));
+		add_mods(MOD_BIT(KC_LSFT));
+		return false;
+	    //if no shift pressed
+	    } else {
+	        SEND_STRING("[]"); 
+	    }
 	} 
         return true;
 	break;
