@@ -10,6 +10,12 @@
  * edit it directly.
  */
 
+/*cancel rolled modifiers
+
+    
+*/
+
+
 // macro code test starts here
 enum custom_keycodes {
     SPL = SAFE_RANGE,
@@ -47,6 +53,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	}
  	return false;
 	break;
+    case LSFT_T(KC_T):
+        if (record->event.pressed && record->tap.count > 0) {
+            if (get_mods() & MOD_BIT(KC_LCTL)) {
+		unregister_mods(MOD_BIT(KC_LCTL));
+		tap_code(KC_S);
+		tap_code(KC_T);
+		add_mods(MOD_BIT(KC_LCTL));
+                return false;
+            }
+        }
+        return true;
+     	break;
+    case RSFT_T(KC_N):
+
+        if (record->event.pressed && record->tap.count > 0) {
+            if (get_mods() & MOD_BIT(KC_RCTL)) {
+                unregister_mods(MOD_BIT(KC_RCTL));
+                tap_code(KC_E);
+                tap_code(KC_N);
+                add_mods(MOD_BIT(KC_RCTL));
+                return false;
+            }
+        }
+        return true;
+    	break;
     }
     return true;
 };
