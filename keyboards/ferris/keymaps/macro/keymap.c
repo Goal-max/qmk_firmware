@@ -166,6 +166,8 @@ const uint16_t PROGMEM wksp1[] = {LSFT_T(KC_T), KC_G, COMBO_END};
 const uint16_t PROGMEM wksp2[] = {KC_M, RSFT_T(KC_N), COMBO_END};
 const uint16_t PROGMEM wksp3[] = {KC_V, KC_Z, COMBO_END};
 const uint16_t PROGMEM wksp4[] = {KC_K, KC_H, COMBO_END};
+const uint16_t PROGMEM wksp5[] = {KC_P, KC_B, COMBO_END};
+const uint16_t PROGMEM wksp6[] = {KC_J, KC_L, COMBO_END};
 combo_t key_combos[] = {
     COMBO(splitWin, SPL),
     COMBO(tab, KC_TAB),
@@ -182,6 +184,8 @@ combo_t key_combos[] = {
     COMBO(wksp2, LGUI(KC_2)),
     COMBO(wksp3, LGUI(KC_3)),
     COMBO(wksp4, LGUI(KC_4)),
+    COMBO(wksp5, LGUI(KC_5)),
+    COMBO(wksp6, LGUI(KC_6)),
     //right vertical combos
     COMBO(par, PAR),
     COMBO(cur, CUR),
