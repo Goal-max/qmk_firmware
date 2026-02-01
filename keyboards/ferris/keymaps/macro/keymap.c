@@ -24,6 +24,8 @@ enum custom_keycodes {
     PAR, // ()
     CUR, // {}
     SQU, // []
+    QUO, // ''
+    DBLQUO, // ""
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -97,13 +99,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	        SEND_STRING("()"); 
 	    }
 	} 
-        return true;
+  return true;
 	break;
     case CUR: 
  	if(record->event.pressed) {
 	    if(get_mods() & MOD_BIT(KC_LSFT)) {
 		unregister_mods(MOD_BIT(KC_LSFT));	
-	        SEND_STRING("{}" SS_TAP(X_LEFT) SS_TAP(X_ENTER) SS_TAP(X_ENTER) SS_TAP(X_UP));
+	        SEND_STRING("{}" SS_TAP(X_LEFT));
 		add_mods(MOD_BIT(KC_LSFT));
 		return false;
 	    //if no shift pressed
@@ -111,7 +113,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	        SEND_STRING("{}"); 
 	    }
 	} 
-        return true;
+  return true;
 	break;
     case SQU: 
  	if(record->event.pressed) {
@@ -127,8 +129,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	} 
         return true;
 	break;
-    }
-    return true;
+    //below needs to be added to combos to use right pinky keys
+    case QUO: 
+   	  if(record->event.pressed) {
+  	    if(get_mods() & MOD_BIT(KC_LSFT)) {
+  	     	unregister_mods(MOD_BIT(KC_LSFT));	
+  	      SEND_STRING("''" SS_TAP(X_LEFT));
+  		    add_mods(MOD_BIT(KC_LSFT));
+  		    return false;
+  	    //if no shift pressed
+  	    } else {
+  	      SEND_STRING("''"); 
+  	    }
+  	  } 
+      return true;
+	    break;
+    case DBLQUO: 
+   	  if(record->event.pressed) {
+  	    if(get_mods() & MOD_BIT(KC_LSFT)) {
+  	     	unregister_mods(MOD_BIT(KC_LSFT));	
+  	      SEND_STRING("\"\"" SS_TAP(X_LEFT));
+  		    add_mods(MOD_BIT(KC_LSFT));
+  		    return false;
+  	    //if no shift pressed
+  	    } else {
+  	      SEND_STRING("\"\""); 
+  	    }
+  	  } 
+      return true;
+	    break;
+  }
+  return true;
 };
 
 
@@ -158,6 +189,8 @@ const uint16_t PROGMEM mouselayer[] = {KC_F, LCTL_T(KC_S), COMBO_END};
 const uint16_t PROGMEM scrollUp[] = {LALT_T(KC_R), KC_C, COMBO_END};
 const uint16_t PROGMEM scrollDown[] = {LCTL_T(KC_S), KC_D, COMBO_END};
 //right vertical combos
+const uint16_t PROGMEM quo[] = {KC_J, KC_M, COMBO_END};
+const uint16_t PROGMEM dblquo[] = {KC_M, KC_K, COMBO_END};
 const uint16_t PROGMEM navlayer[] = {KC_U, RCTL_T(KC_E), COMBO_END};
 const uint16_t PROGMEM par[] = {RSFT_T(KC_N), KC_H, COMBO_END};
 const uint16_t PROGMEM cur[] = {RCTL_T(KC_E), KC_COMMA, COMBO_END};
@@ -203,6 +236,8 @@ combo_t key_combos[] = {
     //COMBO(mousepgup_dbl, PGUP_DBL),
     //COMBO(mousepgdn_dbl, PGDN_DBL),
     //right vertical combos
+    COMBO(quo, QUO),
+    COMBO(dblquo, DBLQUO),
     COMBO(navlayer, TG(2)),
     COMBO(par, PAR),
     COMBO(cur, CUR),
