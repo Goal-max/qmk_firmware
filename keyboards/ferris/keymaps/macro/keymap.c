@@ -189,8 +189,6 @@ const uint16_t PROGMEM mouselayer[] = {KC_F, LCTL_T(KC_S), COMBO_END};
 const uint16_t PROGMEM scrollUp[] = {LALT_T(KC_R), KC_C, COMBO_END};
 const uint16_t PROGMEM scrollDown[] = {LCTL_T(KC_S), KC_D, COMBO_END};
 //right vertical combos
-const uint16_t PROGMEM quo[] = {KC_J, KC_M, COMBO_END};
-const uint16_t PROGMEM dblquo[] = {KC_M, KC_K, COMBO_END};
 const uint16_t PROGMEM navlayer[] = {KC_U, RCTL_T(KC_E), COMBO_END};
 const uint16_t PROGMEM par[] = {RSFT_T(KC_N), KC_H, COMBO_END};
 const uint16_t PROGMEM cur[] = {RCTL_T(KC_E), KC_COMMA, COMBO_END};
@@ -209,6 +207,8 @@ const uint16_t PROGMEM tab[] = {LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T), COMBO_
 
 //right horizontal combos
 const uint16_t PROGMEM enter[] = {RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
+const uint16_t PROGMEM quo[] = {KC_H, KC_COMM, COMBO_END};
+const uint16_t PROGMEM dblquo[] = {KC_COMM, KC_DOT, COMBO_END};
 
 combo_t key_combos[] = {
     COMBO(splitWin, SPL),
