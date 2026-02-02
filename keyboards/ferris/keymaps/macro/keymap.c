@@ -164,7 +164,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT_split_3x5_2(LT(5,KC_Q), KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U, KC_Y, KC_QUOT, LGUI_T(KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T), KC_G, KC_M, RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), RGUI_T(KC_O), KC_X, KC_C, KC_D, KC_V, KC_Z, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, TG(1), LT(4,KC_BSPC), LT(3,KC_SPC), TG(2)), 
+    [0] = LAYOUT_split_3x5_2(LT(5,KC_Q), KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U, KC_Y, KC_QUOT, LGUI_T(KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T), KC_G, KC_M, RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), RGUI_T(KC_O), KC_X, KC_C, KC_D, KC_V, KC_Z, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, KC_DEL, LT(4,KC_BSPC), LT(3,KC_SPC), TG(2)), 
     [1] = LAYOUT_split_3x5_2(KC_TRNS, MS_BTN2, KC_TRNS, MS_BTN1, KC_TRNS, KC_TRNS, MS_BTN1, MS_WHLU, MS_BTN2, KC_TRNS, KC_TRNS, MS_ACL0, MS_ACL1, MS_ACL2, KC_TRNS, KC_TRNS, MS_LEFT, MS_DOWN, MS_UP, MS_RGHT, KC_TRNS, KC_PGUP, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS, MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR, KC_TRNS, KC_TRNS, QK_LLCK, KC_TRNS),
     [2] = LAYOUT_split_3x5_2(KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_UP, KC_DOWN, KC_RGHT, KC_TRNS, KC_TRNS, RSFT_T(KC_NO), RCTL_T(KC_NO), RALT_T(KC_NO), RGUI_T(KC_RGUI), KC_HOME, PGUP_DBL, PGDN_DBL, KC_END, KC_TRNS, KC_TRNS, KC_TRNS, KC_COMM, KC_DOT, KC_TRNS, KC_TRNS, QK_LLCK, KC_TRNS, KC_TRNS),
     [3] = LAYOUT_split_3x5_2(KC_GRV, KC_TILD, KC_HASH, KC_AMPR, KC_PIPE, KC_CIRC, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_EXLM, KC_UNDS, KC_COLN, KC_EQL, KC_DLR, KC_AT, KC_LPRN, KC_RPRN, KC_UNDS, KC_SCLN, KC_PERC, KC_QUES, KC_ASTR, KC_PLUS, KC_BSLS, KC_SLSH, KC_MINS, KC_LT, KC_GT, KC_DQUO, RM_PREV, KC_TRNS, KC_TRNS, RM_NEXT),
@@ -178,7 +178,6 @@ const uint16_t PROGMEM leftWindow[] = {KC_W, LALT_T(KC_R), COMBO_END};
 const uint16_t PROGMEM rightWindow[] = {KC_Y, RALT_T(KC_I), COMBO_END};
 //const uint16_t PROGMEM tab[] = {KC_F, LCTL_T(KC_S), COMBO_END};
 const uint16_t PROGMEM esc[] = {KC_P, LSFT_T(KC_T), COMBO_END};
-const uint16_t PROGMEM del[] = {KC_L, RSFT_T(KC_N), COMBO_END};
 //const uint16_t PROGMEM enter[] = {KC_U, RCTL_T(KC_E), COMBO_END};
 
 const uint16_t PROGMEM back[] = {LGUI_T(KC_A), KC_X, COMBO_END};
@@ -189,6 +188,7 @@ const uint16_t PROGMEM mouselayer[] = {KC_F, LCTL_T(KC_S), COMBO_END};
 const uint16_t PROGMEM scrollUp[] = {LALT_T(KC_R), KC_C, COMBO_END};
 const uint16_t PROGMEM scrollDown[] = {LCTL_T(KC_S), KC_D, COMBO_END};
 //right vertical combos
+const uint16_t PROGMEM baselayer[] = {KC_L, RSFT_T(KC_N), COMBO_END};
 const uint16_t PROGMEM navlayer[] = {KC_U, RCTL_T(KC_E), COMBO_END};
 const uint16_t PROGMEM par[] = {RSFT_T(KC_N), KC_H, COMBO_END};
 const uint16_t PROGMEM cur[] = {RCTL_T(KC_E), KC_COMMA, COMBO_END};
@@ -214,7 +214,6 @@ combo_t key_combos[] = {
     COMBO(splitWin, SPL),
     COMBO(tab, KC_TAB),
     COMBO(esc, KC_ESC),
-    COMBO(del, KC_DEL),
     COMBO(enter, KC_ENT), // keycodes with modifiers are possible too!
     COMBO(back, KC_WBAK),
     COMBO(scrollUp, KC_PGUP), 
@@ -230,15 +229,16 @@ combo_t key_combos[] = {
     COMBO(wksp6, LGUI(KC_6)),
     //left horizontal combos
     //left vertical combos
-    COMBO(mouselayer, TG(1)),
+    COMBO(mouselayer, TO(1)),
     //mouse layer, left vertical combos
     //COMBO(mouselayeroff, TG(1)),
     //COMBO(mousepgup_dbl, PGUP_DBL),
     //COMBO(mousepgdn_dbl, PGDN_DBL),
     //right vertical combos
+    COMBO(baselayer, TO(0)),
     COMBO(quo, QUO),
     COMBO(dblquo, DBLQUO),
-    COMBO(navlayer, TG(2)),
+    COMBO(navlayer, TO(2)),
     COMBO(par, PAR),
     COMBO(cur, CUR),
     COMBO(squ, SQU),
@@ -252,3 +252,12 @@ combo_t key_combos[] = {
 #    include OTHER_KEYMAP_C
 #endif // OTHER_KEYMAP_C
 
+//switch back to layer(0) after timeout specified in config.h
+void matrix_scan_user(void) {
+  int state = get_highest_layer(layer_state); 
+  if (state == 1 || state == 2) {
+    if (last_input_activity_elapsed() > NUM_LAYER_TIMEOUT) {
+      layer_move(0);
+    }
+  }
+}

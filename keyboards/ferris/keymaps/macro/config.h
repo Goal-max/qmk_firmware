@@ -44,5 +44,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CHORDAL_HOLD 
 #define FLOW_TAP_TERM 150 
 
-//Combos from base layer
+//Combos always reference to base layer
 #define COMBO_ONLY_FROM_LAYER 0
+
+//set timeout to default back to layer(0)
+#define NUM_LAYER_TIMEOUT 5000  //configure your timeout in milliseconds
+
