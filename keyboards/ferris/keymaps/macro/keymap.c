@@ -255,7 +255,8 @@ combo_t key_combos[] = {
 //switch back to layer(0) after timeout specified in config.h
 void matrix_scan_user(void) {
   int state = get_highest_layer(layer_state); 
-  if (state == 1 || state == 2) {
+  if (state == 1) { 
+  //|| state == 2) {
     if (last_input_activity_elapsed() > NUM_LAYER_TIMEOUT) {
       layer_move(0);
     }
