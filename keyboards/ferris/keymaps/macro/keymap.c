@@ -204,7 +204,8 @@ const uint16_t PROGMEM wksp5[] = {KC_P, KC_B, COMBO_END};
 const uint16_t PROGMEM wksp6[] = {KC_J, KC_L, COMBO_END};
 //left horizontal combos
 const uint16_t PROGMEM tab[] = {LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T), COMBO_END};
-
+const uint16_t PROGMEM dblpgup[] = {KC_C, KC_D, COMBO_END};
+const uint16_t PROGMEM dblpgdn[] = {KC_D, KC_V, COMBO_END};
 //right horizontal combos
 const uint16_t PROGMEM enter[] = {RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
 const uint16_t PROGMEM quo[] = {KC_H, KC_COMM, COMBO_END};
@@ -228,6 +229,8 @@ combo_t key_combos[] = {
     COMBO(wksp5, LGUI(KC_5)),
     COMBO(wksp6, LGUI(KC_6)),
     //left horizontal combos
+    COMBO(dblpgup, PGUP_DBL),
+    COMBO(dblpgdn, PGDN_DBL),
     //left vertical combos
     COMBO(mouselayer, TO(1)),
     //mouse layer, left vertical combos
@@ -255,8 +258,7 @@ combo_t key_combos[] = {
 //switch back to layer(0) after timeout specified in config.h
 void matrix_scan_user(void) {
   int state = get_highest_layer(layer_state); 
-  if (state == 1) { 
-  //|| state == 2) {
+  if (state == 1 || state == 2) {
     if (last_input_activity_elapsed() > NUM_LAYER_TIMEOUT) {
       layer_move(0);
     }
