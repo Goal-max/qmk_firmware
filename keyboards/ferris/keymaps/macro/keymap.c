@@ -29,106 +29,112 @@ enum custom_keycodes {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
+  switch (keycode) {
     case SPL:
- 	if (record->event.pressed) {
-	    tap_code16(LCTL(KC_L));
-  	    tap_code16(LSFT(KC_ENT));
-	    tap_code(KC_PGDN);
-	}
-   	return false;
-	break;
+    	if (record->event.pressed) {
+	      tap_code16(LCTL(KC_L));
+    	  tap_code16(LSFT(KC_ENT));
+	      tap_code(KC_PGDN);
+	    }
+     	return false;
+	    break;
     case PGUP_DBL:
-	if (record->event.pressed) {
-	    tap_code(KC_PGUP);
-	    tap_code(KC_PGUP);
-   	    tap_code16(RGUI(KC_LEFT));
-	    tap_code(KC_PGUP);
-	    tap_code(KC_PGUP);
-	}
- 	return false;
-	break;
+      if (record->event.pressed) {
+        tap_code(KC_PGUP);
+        tap_code(KC_PGUP);
+        tap_code16(RGUI(KC_LEFT));
+        tap_code(KC_PGUP);
+        tap_code(KC_PGUP);
+      }
+      return false;
+      break;
     case PGDN_DBL:
-	if (record->event.pressed) {
-	    tap_code(KC_PGDN);
-	    tap_code(KC_PGDN);
-   	    tap_code16(RGUI(KC_LEFT));
-	    tap_code(KC_PGDN);
-	    tap_code(KC_PGDN);
-	}
- 	return false;
-	break;
+      if (record->event.pressed) {
+        tap_code(KC_PGDN);
+        tap_code(KC_PGDN);
+        tap_code16(RGUI(KC_LEFT));
+        tap_code(KC_PGDN);
+        tap_code(KC_PGDN);
+      }
+      return false;
+      break;
     //cancel rolled modifiers of same hand. Prevents modifiers accidental
     //press e.g. when press s and t key, stops ctrl + t behaviour.
     case LSFT_T(KC_T):
-        if (record->event.pressed && record->tap.count > 0) {
-            if (get_mods() & MOD_BIT(KC_LCTL)) {
-		unregister_mods(MOD_BIT(KC_LCTL));
-		tap_code(KC_S);
-		tap_code(KC_T);
-		add_mods(MOD_BIT(KC_LCTL));
-                return false;
-            }
+      if (record->event.pressed && record->tap.count > 0) {
+        if (get_mods() & MOD_BIT(KC_LCTL)) {
+          unregister_mods(MOD_BIT(KC_LCTL));
+          tap_code(KC_S);
+          tap_code(KC_T);
+          add_mods(MOD_BIT(KC_LCTL));
+          return false;
         }
-        return true;
+      }
+      return true;
      	break;
     case RSFT_T(KC_N):
-
-        if (record->event.pressed && record->tap.count > 0) {
-            if (get_mods() & MOD_BIT(KC_RCTL)) {
-                unregister_mods(MOD_BIT(KC_RCTL));
-                tap_code(KC_E);
-                tap_code(KC_N);
-                add_mods(MOD_BIT(KC_RCTL));
-                return false;
-            }
+      if (record->event.pressed && record->tap.count > 0) {
+        if (get_mods() & MOD_BIT(KC_RCTL)) {
+          unregister_mods(MOD_BIT(KC_RCTL));
+          tap_code(KC_E);
+          tap_code(KC_N);
+          add_mods(MOD_BIT(KC_RCTL));
+          return false;
         }
-        return true;
+      }
+      return true;
     	break;
+    //escape goes back baselayer if layer set
+    case KC_ESC:
+      if (record->event.pressed) {
+        layer_clear();       
+      }
+      return true;
+      break;
     //macro for brackets
     case PAR: 
-	if (record->event.pressed) {
+      if (record->event.pressed) {
 	    //if shift pressed
-	    if(get_mods() & MOD_BIT(KC_LSFT)) {
-		unregister_mods(MOD_BIT(KC_LSFT));	
+        if(get_mods() & MOD_BIT(KC_LSFT)) {
+          unregister_mods(MOD_BIT(KC_LSFT));	
 	        SEND_STRING("()" SS_TAP(X_LEFT));
-		add_mods(MOD_BIT(KC_LSFT));
-		return false;
+          add_mods(MOD_BIT(KC_LSFT));
+          return false;
 	    //if no shift pressed
-	    } else {
+        } else {
 	        SEND_STRING("()"); 
-	    }
-	} 
-  return true;
-	break;
+        }
+      } 
+      return true;
+      break;
     case CUR: 
- 	if(record->event.pressed) {
-	    if(get_mods() & MOD_BIT(KC_LSFT)) {
-		unregister_mods(MOD_BIT(KC_LSFT));	
+      if(record->event.pressed) {
+        if(get_mods() & MOD_BIT(KC_LSFT)) {
+          unregister_mods(MOD_BIT(KC_LSFT));	
 	        SEND_STRING("{}" SS_TAP(X_LEFT));
-		add_mods(MOD_BIT(KC_LSFT));
-		return false;
+          add_mods(MOD_BIT(KC_LSFT));
+          return false;
 	    //if no shift pressed
-	    } else {
+        } else {
 	        SEND_STRING("{}"); 
-	    }
-	} 
-  return true;
-	break;
+        }
+      } 
+      return true;
+      break;
     case SQU: 
- 	if(record->event.pressed) {
-	    if(get_mods() & MOD_BIT(KC_LSFT)) {
-		unregister_mods(MOD_BIT(KC_LSFT));	
-	        SEND_STRING("[]" SS_TAP(X_LEFT));
-		add_mods(MOD_BIT(KC_LSFT));
-		return false;
-	    //if no shift pressed
-	    } else {
-	        SEND_STRING("[]"); 
-	    }
-	} 
-        return true;
-	break;
+      if(record->event.pressed) {
+	      if(get_mods() & MOD_BIT(KC_LSFT)) {
+          unregister_mods(MOD_BIT(KC_LSFT));	
+          SEND_STRING("[]" SS_TAP(X_LEFT));
+          add_mods(MOD_BIT(KC_LSFT));
+          return false;
+	      //if no shift pressed
+	      } else {
+          SEND_STRING("[]"); 
+	      }
+      } 
+      return true;
+      break;
     //below needs to be added to combos to use right pinky keys
     case QUO: 
    	  if(record->event.pressed) {
@@ -188,7 +194,7 @@ const uint16_t PROGMEM mouselayer[] = {KC_F, LCTL_T(KC_S), COMBO_END};
 const uint16_t PROGMEM scrollUp[] = {LALT_T(KC_R), KC_C, COMBO_END};
 const uint16_t PROGMEM scrollDown[] = {LCTL_T(KC_S), KC_D, COMBO_END};
 //right vertical combos
-const uint16_t PROGMEM baselayer[] = {KC_L, RSFT_T(KC_N), COMBO_END};
+//const uint16_t PROGMEM baselayer[] = {KC_L, RSFT_T(KC_N), COMBO_END};
 const uint16_t PROGMEM navlayer[] = {KC_U, RCTL_T(KC_E), COMBO_END};
 const uint16_t PROGMEM par[] = {RSFT_T(KC_N), KC_H, COMBO_END};
 const uint16_t PROGMEM cur[] = {RCTL_T(KC_E), KC_COMMA, COMBO_END};
@@ -206,11 +212,13 @@ const uint16_t PROGMEM wksp6[] = {KC_J, KC_L, COMBO_END};
 const uint16_t PROGMEM tab[] = {LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T), COMBO_END};
 const uint16_t PROGMEM dblpgup[] = {KC_C, KC_D, COMBO_END};
 const uint16_t PROGMEM dblpgdn[] = {KC_D, KC_V, COMBO_END};
+//const uint16_t PROGMEM escape[] = {LCTL_T(KC_S), LSFT_T(KC_T)}
 //right horizontal combos
 const uint16_t PROGMEM enter[] = {RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
 const uint16_t PROGMEM quo[] = {KC_H, KC_COMM, COMBO_END};
 const uint16_t PROGMEM dblquo[] = {KC_COMM, KC_DOT, COMBO_END};
-
+//both side combos
+const uint16_t PROGMEM baselayer[] = {LT(4,KC_BSPC), LT(3,KC_SPC), COMBO_END};
 combo_t key_combos[] = {
     COMBO(splitWin, SPL),
     COMBO(tab, KC_TAB),
