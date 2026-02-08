@@ -190,12 +190,12 @@ const uint16_t PROGMEM back[] = {LGUI_T(KC_A), KC_X, COMBO_END};
 const uint16_t PROGMEM forward[] = {LSFT_T(KC_T), KC_V, COMBO_END};
 
 //left vertical combos
-const uint16_t PROGMEM mouselayer[] = {KC_F, LCTL_T(KC_S), COMBO_END};
+//const uint16_t PROGMEM mouselayer[] = {KC_F, LCTL_T(KC_S), COMBO_END};
 const uint16_t PROGMEM scrollUp[] = {LALT_T(KC_R), KC_C, COMBO_END};
 const uint16_t PROGMEM scrollDown[] = {LCTL_T(KC_S), KC_D, COMBO_END};
 //right vertical combos
 //const uint16_t PROGMEM baselayer[] = {KC_L, RSFT_T(KC_N), COMBO_END};
-const uint16_t PROGMEM navlayer[] = {KC_U, RCTL_T(KC_E), COMBO_END};
+//const uint16_t PROGMEM navlayer[] = {KC_U, RCTL_T(KC_E), COMBO_END};
 const uint16_t PROGMEM par[] = {RSFT_T(KC_N), KC_H, COMBO_END};
 const uint16_t PROGMEM cur[] = {RCTL_T(KC_E), KC_COMMA, COMBO_END};
 const uint16_t PROGMEM squ[] = {RALT_T(KC_I), KC_DOT, COMBO_END};
@@ -209,11 +209,13 @@ const uint16_t PROGMEM wksp4[] = {KC_K, KC_H, COMBO_END};
 const uint16_t PROGMEM wksp5[] = {KC_P, KC_B, COMBO_END};
 const uint16_t PROGMEM wksp6[] = {KC_J, KC_L, COMBO_END};
 //left horizontal combos
+const uint16_t PROGMEM mouselayer[] = {LALT_T(KC_R), LCTL_T(KC_S), COMBO_END};
 const uint16_t PROGMEM tab[] = {LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T), COMBO_END};
 const uint16_t PROGMEM dblpgup[] = {KC_C, KC_D, COMBO_END};
 const uint16_t PROGMEM dblpgdn[] = {KC_D, KC_V, COMBO_END};
 const uint16_t PROGMEM escape[] = {LCTL_T(KC_S), LSFT_T(KC_T), COMBO_END};
 //right horizontal combos
+const uint16_t PROGMEM navlayer[] = {RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
 const uint16_t PROGMEM enter[] = {RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
 const uint16_t PROGMEM quo[] = {KC_H, KC_COMM, COMBO_END};
 const uint16_t PROGMEM dblquo[] = {KC_COMM, KC_DOT, COMBO_END};
