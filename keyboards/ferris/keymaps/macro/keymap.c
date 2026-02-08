@@ -87,7 +87,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     //escape goes back baselayer if layer set
     case KC_ESC:
       if (record->event.pressed) {
-        layer_clear();       
+        if (IS_LAYER_ON(1) || IS_LAYER_ON(2)) {
+          layer_clear();       
+          return false;
+        }
       }
       return true;
       break;
