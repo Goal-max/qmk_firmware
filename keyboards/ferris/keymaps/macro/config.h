@@ -50,3 +50,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //set timeout to default back to layer(0)
 #define NUM_LAYER_TIMEOUT 5000  //configure your timeout in milliseconds
 
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
