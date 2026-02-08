@@ -170,10 +170,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     //below needs to be added to combos to use right pinky keys
     case QUO: 
    	  if(record->event.pressed) {
-  	    if(get_mods() & MOD_BIT(KC_LSFT)) {
-  	     	unregister_mods(MOD_BIT(KC_LSFT));	
+  	    if(get_mods() & MOD_BIT(KC_RSFT)) {
+  	     	unregister_mods(MOD_BIT(KC_RSFT));	
   	      SEND_STRING("''" SS_TAP(X_LEFT));
-  		    add_mods(MOD_BIT(KC_LSFT));
+  		    add_mods(MOD_BIT(KC_RSFT));
   		    return false;
   	    //if no shift pressed
   	    } else {
@@ -256,11 +256,12 @@ const uint16_t PROGMEM tab[] = {LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T), COMBO_
 const uint16_t PROGMEM dblpgup[] = {KC_C, KC_D, COMBO_END};
 const uint16_t PROGMEM dblpgdn[] = {KC_D, KC_V, COMBO_END};
 const uint16_t PROGMEM escape[] = {LCTL_T(KC_S), LSFT_T(KC_T), COMBO_END};
+const uint16_t PROGMEM quo[] = {LALT_T(KC_R), LSFT_T(KC_T), COMBO_END};
 //right horizontal combos
 const uint16_t PROGMEM navlayer[] = {RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
 const uint16_t PROGMEM enter[] = {RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
-const uint16_t PROGMEM quo[] = {KC_H, KC_COMM, COMBO_END};
-const uint16_t PROGMEM dblquo[] = {KC_COMM, KC_DOT, COMBO_END};
+//const uint16_t PROGMEM quo[] = {KC_H, KC_COMM, COMBO_END};
+const uint16_t PROGMEM dblquo[] = {RSFT_T(KC_N), RALT_T(KC_I), COMBO_END};
 //both side combos
 const uint16_t PROGMEM numlayer[] = {LT(3,KC_BSPC), LT(3,KC_SPC), COMBO_END};
 combo_t key_combos[] = {
