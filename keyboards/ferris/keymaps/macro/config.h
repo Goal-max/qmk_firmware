@@ -46,7 +46,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //Combos always reference to base layer
 #define COMBO_ONLY_FROM_LAYER 0
-
+//Prevent combo misfires when typing t and s
+#define COMBO_TERM 40
 //set timeout to default back to layer(0)
 #define NUM_LAYER_TIMEOUT 5000  //configure your timeout in milliseconds
 
