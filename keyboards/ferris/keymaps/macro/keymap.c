@@ -64,9 +64,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed && record->tap.count > 0) {
         if (get_mods() & MOD_BIT(KC_LCTL)) {
           unregister_mods(MOD_BIT(KC_LCTL));
-          tap_code(KC_ESC);
-         // tap_code(KC_S);
-         // tap_code(KC_T);
+          tap_code(KC_S);
+          tap_code(KC_T);
           add_mods(MOD_BIT(KC_LCTL));
           return false;
         }
@@ -213,7 +212,7 @@ const uint16_t PROGMEM wksp6[] = {KC_J, KC_L, COMBO_END};
 const uint16_t PROGMEM tab[] = {LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T), COMBO_END};
 const uint16_t PROGMEM dblpgup[] = {KC_C, KC_D, COMBO_END};
 const uint16_t PROGMEM dblpgdn[] = {KC_D, KC_V, COMBO_END};
-const uint16_t PROGMEM escape[] = {LCTL_T(KC_S), LSFT_T(KC_T)};
+const uint16_t PROGMEM escape[] = {LCTL_T(KC_S), LSFT_T(KC_T), COMBO_END};
 //right horizontal combos
 const uint16_t PROGMEM enter[] = {RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
 const uint16_t PROGMEM quo[] = {KC_H, KC_COMM, COMBO_END};
