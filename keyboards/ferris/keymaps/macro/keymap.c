@@ -19,7 +19,7 @@
 
 // macro code test starts here
 enum custom_keycodes {
-    SPL = SAFE_RANGE,
+    SPL = SAFE_RANGE, //open copy of browser window, in another window
     PGUP_DBL, //2 page scroll up 
     PGDN_DBL, //2 page scroll down
     PAR, // ()
