@@ -15,6 +15,7 @@
     
 */
 
+//Define named constants for customised tap-hold keys 
 
 // macro code test starts here
 enum custom_keycodes {
@@ -28,7 +29,13 @@ enum custom_keycodes {
     DBLQUO, // ""
     CAPG, // G
     RARROW, // right arrow
+    PAR_ARR
 };
+
+
+#define PAR     LT(PAR, KC_0)   // () with arrow back function when held
+#define CUR     LT(CUR, KC_0)   // () with arrow back function when held
+#define SQU     LT(SQU, KC_0)   // () with arrow back function when held
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -126,47 +133,43 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     //macro for brackets
     case PAR: 
-      if (record->event.pressed) {
-	    //if shift pressed
-        if(get_mods() & MOD_BIT(KC_LSFT)) {
-          unregister_mods(MOD_BIT(KC_LSFT));	
+      if (record->tap.count) {
+        if(record->event.pressed) {
 	        SEND_STRING("()" SS_TAP(X_LEFT));
-          add_mods(MOD_BIT(KC_LSFT));
-          return false;
-	    //if no shift pressed
-        } else {
-	        SEND_STRING("()"); 
         }
+        return false;
+        //if held
+      } else if (record->event.pressed) {
+        SEND_STRING("()");        
+        return false;
       } 
-      return true;
+      return false;
       break;
-    case CUR: 
-      if(record->event.pressed) {
-        if(get_mods() & MOD_BIT(KC_LSFT)) {
-          unregister_mods(MOD_BIT(KC_LSFT));	
+    case CUR:
+      if (record->tap.count) {
+        if(record->event.pressed) {
 	        SEND_STRING("{}" SS_TAP(X_LEFT));
-          add_mods(MOD_BIT(KC_LSFT));
-          return false;
-	    //if no shift pressed
-        } else {
-	        SEND_STRING("{}"); 
         }
+        return false;
+        //if held
+      } else if (record->event.pressed) {
+        SEND_STRING("{}");        
+        return false;
       } 
-      return true;
+      return false;
       break;
     case SQU: 
-      if(record->event.pressed) {
-	      if(get_mods() & MOD_BIT(KC_LSFT)) {
-          unregister_mods(MOD_BIT(KC_LSFT));	
-          SEND_STRING("[]" SS_TAP(X_LEFT));
-          add_mods(MOD_BIT(KC_LSFT));
-          return false;
-	      //if no shift pressed
-	      } else {
-          SEND_STRING("[]"); 
-	      }
+      if (record->tap.count) {
+        if(record->event.pressed) {
+	        SEND_STRING("[]" SS_TAP(X_LEFT));
+        }
+        return false;
+        //if held
+      } else if (record->event.pressed) {
+        SEND_STRING("[]");        
+        return false;
       } 
-      return true;
+      return false;
       break;
     //below needs to be added to combos to use right pinky keys
     case QUO: 
