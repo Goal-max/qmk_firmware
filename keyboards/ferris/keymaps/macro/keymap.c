@@ -213,7 +213,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RARROW: 
    	  if(record->event.pressed) {
         tap_code(KC_RGHT);
-        tap_code(KC_RGHT);
         return false;
   	  } 
       return true;
