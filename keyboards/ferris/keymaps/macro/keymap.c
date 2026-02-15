@@ -20,6 +20,7 @@
 // macro code test starts here
 enum custom_keycodes {
     SPL = SAFE_RANGE, //open copy of browser window, in another window
+    PIPE, // ||
     PGUP_DBL, //2 page scroll up 
     PGDN_DBL, //2 page scroll down
     PAR, // ()
@@ -30,15 +31,15 @@ enum custom_keycodes {
     CAPG, // G
     RARROW, // right arrow
     LARROW, // right arrow
-    PAR_ARR
 };
 
 
 #define PAR     LT(PAR, KC_0)   // () with arrow back function when held
-#define CUR     LT(CUR, KC_0)   // () with arrow back function when held
-#define SQU     LT(SQU, KC_0)   // () with arrow back function when held
-#define QUO     LT(QUO, KC_0)   // () with arrow back function when held
-#define DBLQUO     LT(DBLQUO, KC_0)   // () with arrow back function when held
+#define CUR     LT(CUR, KC_0)   // {} with arrow back function when held
+#define SQU     LT(SQU, KC_0)   // [] with arrow back function when held
+#define QUO     LT(QUO, KC_0)   // '' with arrow back function when held
+#define DBLQUO     LT(DBLQUO, KC_0)   // "" with arrow back function when held
+#define PIPE     LT(PIPE, KC_0)   // || with arrow back function when held
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -50,6 +51,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	    }
      	return false;
 	    break;
+    case PIPE: 
+      if (record->tap.count) {
+        if(record->event.pressed) {
+	        SEND_STRING("||" SS_TAP(X_LEFT));
+        }
+        return false;
+        //if held
+      } else if (record->event.pressed) {
+        SEND_STRING("||");        
+        return false;
+      } 
+      return false;
+      break;
     case PGUP_DBL:
       if (record->event.pressed) {
         tap_code(KC_PGUP);
@@ -268,23 +282,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-const uint16_t PROGMEM splitWin[] = {LT(5,KC_Q), LGUI_T(KC_A), COMBO_END};
-const uint16_t PROGMEM leftWindow[] = {KC_W, LALT_T(KC_R), COMBO_END};
-const uint16_t PROGMEM rightWindow[] = {KC_Y, RALT_T(KC_I), COMBO_END};
 //const uint16_t PROGMEM tab[] = {KC_F, LCTL_T(KC_S), COMBO_END};
-const uint16_t PROGMEM esc[] = {KC_P, LSFT_T(KC_T), COMBO_END};
 //const uint16_t PROGMEM enter[] = {KC_U, RCTL_T(KC_E), COMBO_END};
 
 const uint16_t PROGMEM back[] = {LGUI_T(KC_A), KC_X, COMBO_END};
 const uint16_t PROGMEM forward[] = {LSFT_T(KC_T), KC_V, COMBO_END};
 
 //left vertical combos
+const uint16_t PROGMEM pipe[] = {KC_P, LSFT_T(KC_T), COMBO_END};
 //const uint16_t PROGMEM mouselayer[] = {KC_F, LCTL_T(KC_S), COMBO_END};
+const uint16_t PROGMEM splitWin[] = {LT(5,KC_Q), LGUI_T(KC_A), COMBO_END};
+const uint16_t PROGMEM leftWindow[] = {KC_W, LALT_T(KC_R), COMBO_END};
 const uint16_t PROGMEM scrollUp[] = {LALT_T(KC_R), KC_C, COMBO_END};
 const uint16_t PROGMEM scrollDown[] = {LCTL_T(KC_S), KC_D, COMBO_END};
 //right vertical combos
 //const uint16_t PROGMEM baselayer[] = {KC_L, RSFT_T(KC_N), COMBO_END};
 //const uint16_t PROGMEM navlayer[] = {KC_U, RCTL_T(KC_E), COMBO_END};
+const uint16_t PROGMEM rightWindow[] = {KC_Y, RALT_T(KC_I), COMBO_END};
 const uint16_t PROGMEM par[] = {RSFT_T(KC_N), KC_H, COMBO_END};
 const uint16_t PROGMEM cur[] = {RCTL_T(KC_E), KC_COMMA, COMBO_END};
 const uint16_t PROGMEM squ[] = {RALT_T(KC_I), KC_DOT, COMBO_END};
@@ -316,7 +330,6 @@ const uint16_t PROGMEM numlayer[] = {LT(3,KC_BSPC), LT(3,KC_SPC), COMBO_END};
 combo_t key_combos[] = {
     COMBO(splitWin, SPL),
     COMBO(tab, KC_TAB),
-    COMBO(esc, KC_ESC),
     COMBO(escape, KC_ESC),
     COMBO(enter, KC_ENT), // keycodes with modifiers are possible too!
     COMBO(back, KC_WBAK),
@@ -335,6 +348,7 @@ combo_t key_combos[] = {
     COMBO(dblpgup, PGUP_DBL),
     COMBO(dblpgdn, PGDN_DBL),
     //left vertical combos
+    COMBO(pipe, PIPE),
     COMBO(mouselayer, TO(1)),
     //mouse layer, left vertical combos
     //COMBO(mouselayeroff, TG(1)),
