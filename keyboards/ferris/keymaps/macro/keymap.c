@@ -138,6 +138,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return true;
       break;
+      /*
     case MS_BTN1: 
       if (record->event.pressed) {
         if (IS_LAYER_ON(1) 
@@ -150,6 +151,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+       */
     //escape goes back baselayer if layer set
     case KC_ESC:
       if (record->event.pressed) {
