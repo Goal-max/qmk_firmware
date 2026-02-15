@@ -29,6 +29,7 @@ enum custom_keycodes {
     DBLQUO, // ""
     CAPG, // G
     RARROW, // right arrow
+    LARROW, // right arrow
     PAR_ARR
 };
 
@@ -36,6 +37,8 @@ enum custom_keycodes {
 #define PAR     LT(PAR, KC_0)   // () with arrow back function when held
 #define CUR     LT(CUR, KC_0)   // () with arrow back function when held
 #define SQU     LT(SQU, KC_0)   // () with arrow back function when held
+#define QUO     LT(QUO, KC_0)   // () with arrow back function when held
+#define DBLQUO     LT(DBLQUO, KC_0)   // () with arrow back function when held
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -173,19 +176,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     //below needs to be added to combos to use right pinky keys
     case QUO: 
-   	  if(record->event.pressed) {
-  	    if(get_mods() & MOD_BIT(KC_RSFT)) {
-  	     	unregister_mods(MOD_BIT(KC_RSFT));	
-  	      SEND_STRING("''" SS_TAP(X_LEFT));
-  		    add_mods(MOD_BIT(KC_RSFT));
-  		    return false;
-  	    //if no shift pressed
-  	    } else {
-  	      SEND_STRING("''"); 
-  	    }
-  	  } 
-      return true;
-	    break;
+      if (record->tap.count) {
+        if(record->event.pressed) {
+	        SEND_STRING("''" SS_TAP(X_LEFT));
+        }
+        return false;
+        //if held
+      } else if (record->event.pressed) {
+        SEND_STRING("''");        
+        return false;
+      } 
+      return false;
+      break;
+    case DBLQUO: 
+      if (record->tap.count) {
+        if(record->event.pressed) {
+	        SEND_STRING("\"\"" SS_TAP(X_LEFT));
+        }
+        return false;
+        //if held
+      } else if (record->event.pressed) {
+        SEND_STRING("\"\"");        
+        return false;
+      } 
+      return false;
+      break;
+   /* 
     case DBLQUO: 
    	  if(record->event.pressed) {
   	    if(get_mods() & MOD_BIT(KC_LSFT)) {
@@ -200,6 +216,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   	  } 
       return true;
 	    break;
+      */
     case CAPG: 
    	  if(record->event.pressed) {
         register_mods(MOD_BIT(KC_RSFT));
@@ -213,6 +230,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RARROW: 
    	  if(record->event.pressed) {
         tap_code(KC_RGHT);
+        return false;
+  	  } 
+      return true;
+	    break;
+    case LARROW: 
+   	  if(record->event.pressed) {
+        tap_code(KC_LEFT);
         return false;
   	  } 
       return true;
@@ -271,6 +295,7 @@ const uint16_t PROGMEM quo[] = {LALT_T(KC_R), LSFT_T(KC_T), COMBO_END};
 //right horizontal combos
 const uint16_t PROGMEM navlayer[] = {RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
 const uint16_t PROGMEM enter[] = {RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
+const uint16_t PROGMEM larrow[] = {KC_H, KC_COMM, COMBO_END};
 const uint16_t PROGMEM rarrow[] = {KC_COMM, KC_DOT, COMBO_END};
 //const uint16_t PROGMEM quo[] = {KC_H, KC_COMM, COMBO_END};
 const uint16_t PROGMEM dblquo[] = {RSFT_T(KC_N), RALT_T(KC_I), COMBO_END};
@@ -308,6 +333,7 @@ combo_t key_combos[] = {
     COMBO(quo, QUO),
     COMBO(dblquo, DBLQUO),
     COMBO(navlayer, TO(2)),
+    COMBO(larrow, LARROW),
     COMBO(rarrow, RARROW),
     //right vertical combos
     COMBO(par, PAR),
