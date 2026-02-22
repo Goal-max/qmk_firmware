@@ -325,6 +325,7 @@ const uint16_t PROGMEM navlayer[] = {RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
 const uint16_t PROGMEM enter[] = {RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
 const uint16_t PROGMEM larrow[] = {KC_H, KC_COMM, COMBO_END};
 const uint16_t PROGMEM rarrow[] = {KC_COMM, KC_DOT, COMBO_END};
+const uint16_t PROGMEM quit[] = {KC_QUOT, RGUI_T(KC_O), COMBO_END};
 //const uint16_t PROGMEM quo[] = {KC_H, KC_COMM, COMBO_END};
 const uint16_t PROGMEM dblquo[] = {RSFT_T(KC_N), RALT_T(KC_I), COMBO_END};
 //both side combos
@@ -338,7 +339,7 @@ combo_t key_combos[] = {
     COMBO(scrollUp, KC_PGUP), 
     COMBO(scrollDown, KC_PGDN), 
     COMBO(forward, KC_WFWD),
-    COMBO(leftWindow, LGUI(KC_LEFT)),
+    COMBO(leftWindow, RGUI(KC_LEFT)),
     COMBO(rightWindow, LGUI(KC_RGHT)),
     COMBO(wksp1, LGUI(KC_1)),
     COMBO(wksp2, LGUI(KC_2)),
@@ -357,6 +358,7 @@ combo_t key_combos[] = {
     //COMBO(mousepgup_dbl, PGUP_DBL),
     //COMBO(mousepgdn_dbl, PGDN_DBL),
     //right horizontal combos
+    COMBO(quit, LSG(KC_Q)),
     COMBO(numlayer, TO(4)),
     COMBO(quo, QUO),
     COMBO(dblquo, DBLQUO),
