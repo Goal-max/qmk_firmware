@@ -15,8 +15,6 @@
     
 */
 
-//Define named constants for customised tap-hold keys 
-
 // macro code test starts here
 enum custom_keycodes {
     SPL = SAFE_RANGE, //open copy of browser window, in another window
@@ -126,6 +124,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     //clears all layers if access symbol layer
     case LT(3,KC_SPC):
+      //when key held down
       if (!record->tap.count) {
         if (IS_LAYER_ON(1) 
           || IS_LAYER_ON(2) 
@@ -289,28 +288,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-//const uint16_t PROGMEM tab[] = {KC_F, LCTL_T(KC_S), COMBO_END};
-//const uint16_t PROGMEM enter[] = {KC_U, RCTL_T(KC_E), COMBO_END};
-
 const uint16_t PROGMEM back[] = {LGUI_T(KC_A), KC_X, COMBO_END};
 const uint16_t PROGMEM forward[] = {LSFT_T(KC_T), KC_V, COMBO_END};
 
 //left vertical combos
 const uint16_t PROGMEM pipe[] = {KC_P, LSFT_T(KC_T), COMBO_END};
-//const uint16_t PROGMEM mouselayer[] = {KC_F, LCTL_T(KC_S), COMBO_END};
-const uint16_t PROGMEM splitWin[] = {LT(5,KC_Q), LGUI_T(KC_A), COMBO_END};
+const uint16_t PROGMEM splitWin[] = {KC_B, KC_G, COMBO_END};
 const uint16_t PROGMEM leftWindow[] = {KC_W, LALT_T(KC_R), COMBO_END};
 const uint16_t PROGMEM scrollUp[] = {LALT_T(KC_R), KC_C, COMBO_END};
 const uint16_t PROGMEM scrollDown[] = {LCTL_T(KC_S), KC_D, COMBO_END};
 //right vertical combos
-//const uint16_t PROGMEM baselayer[] = {KC_L, RSFT_T(KC_N), COMBO_END};
-//const uint16_t PROGMEM navlayer[] = {KC_U, RCTL_T(KC_E), COMBO_END};
 const uint16_t PROGMEM rightWindow[] = {KC_Y, RALT_T(KC_I), COMBO_END};
 const uint16_t PROGMEM par[] = {RSFT_T(KC_N), KC_H, COMBO_END};
 const uint16_t PROGMEM cur[] = {RCTL_T(KC_E), KC_COMMA, COMBO_END};
 const uint16_t PROGMEM squ[] = {RALT_T(KC_I), KC_DOT, COMBO_END};
-
-
 //horizontal combos
 const uint16_t PROGMEM wksp1[] = {LSFT_T(KC_T), KC_G, COMBO_END};
 const uint16_t PROGMEM wksp2[] = {KC_M, RSFT_T(KC_N), COMBO_END};
@@ -330,8 +321,7 @@ const uint16_t PROGMEM navlayer[] = {RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
 const uint16_t PROGMEM enter[] = {RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
 const uint16_t PROGMEM larrow[] = {KC_H, KC_COMM, COMBO_END};
 const uint16_t PROGMEM rarrow[] = {KC_COMM, KC_DOT, COMBO_END};
-const uint16_t PROGMEM quit[] = {KC_QUOT, RGUI_T(KC_O), COMBO_END};
-//const uint16_t PROGMEM quo[] = {KC_H, KC_COMM, COMBO_END};
+const uint16_t PROGMEM quit[] = {KC_J, KC_M, COMBO_END};
 const uint16_t PROGMEM dblquo[] = {RSFT_T(KC_N), RALT_T(KC_I), COMBO_END};
 //both side combos
 const uint16_t PROGMEM numlayer[] = {LT(3,KC_BSPC), LT(3,KC_SPC), COMBO_END};
@@ -358,10 +348,6 @@ combo_t key_combos[] = {
     //left vertical combos
     COMBO(pipe, PIPE),
     COMBO(mouselayer, TO(1)),
-    //mouse layer, left vertical combos
-    //COMBO(mouselayeroff, TG(1)),
-    //COMBO(mousepgup_dbl, PGUP_DBL),
-    //COMBO(mousepgdn_dbl, PGDN_DBL),
     //right horizontal combos
     COMBO(quit, LSG(KC_Q)),
     COMBO(numlayer, TO(4)),
@@ -374,8 +360,6 @@ combo_t key_combos[] = {
     COMBO(par, PAR),
     COMBO(cur, CUR),
     COMBO(squ, SQU),
-    //mouse layer, right vertical combos
-    //COMBO(navlayeroff, TG(2)),
     
 };
 
