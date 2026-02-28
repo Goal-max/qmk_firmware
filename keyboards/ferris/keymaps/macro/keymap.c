@@ -124,34 +124,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return true;
       break;
-    //space key goes back to default layer from all layer
+    //clears all layers if access symbol layer
     case LT(3,KC_SPC):
-      if (record->event.pressed) {
+      if (!record->tap.count) {
         if (IS_LAYER_ON(1) 
           || IS_LAYER_ON(2) 
-          || IS_LAYER_ON(3)
           || IS_LAYER_ON(4)) {
-          tap_code(KC_SPC);
           layer_clear();       
-          return false;
+          return true;
         }
       }
       return true;
       break;
-      /*
-    case MS_BTN1: 
-      if (record->event.pressed) {
+    case LT(3,KC_BSPC):
+      if (!record->tap.count) {
         if (IS_LAYER_ON(1) 
           || IS_LAYER_ON(2) 
-          || IS_LAYER_ON(3)
           || IS_LAYER_ON(4)) {
           layer_clear();       
-          tap_code(MS_BTN1);
+          return true;
         }
       }
-      return false;
+      return true;
       break;
-       */
+    case TO(4):
+      if (record->event.pressed) {
+        if (IS_LAYER_ON(1) 
+          || IS_LAYER_ON(2)) {
+          layer_clear();       
+          return true;
+        }
+      }
+      return true;
+      break;
     //escape goes back baselayer if layer set
     case KC_ESC:
       if (record->event.pressed) {
