@@ -15,6 +15,8 @@
     
 */
 
+//Define named constants for customised tap-hold keys 
+
 // macro code test starts here
 enum custom_keycodes {
     SPL = SAFE_RANGE, //open copy of browser window, in another window
@@ -29,6 +31,7 @@ enum custom_keycodes {
     CAPG, // G
     RARROW, // right arrow
     LARROW, // right arrow
+    ML, //left mouse
 };
 
 
@@ -38,6 +41,7 @@ enum custom_keycodes {
 #define QUO     LT(QUO, KC_0)   // '' with arrow back function when held
 #define DBLQUO     LT(DBLQUO, KC_0)   // "" with arrow back function when held
 #define PIPE     LT(PIPE, KC_0)   // || with arrow back function when held
+#define ML     LT(ML, KC_0)   // || with arrow back function when held
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -124,7 +128,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     //clears all layers if access symbol layer
     case LT(3,KC_SPC):
-      //when key held down
+      //when key held d
       if (!record->tap.count) {
         if (IS_LAYER_ON(1) 
           || IS_LAYER_ON(2) 
@@ -233,6 +237,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } 
       return false;
       break;
+    case ML: 
+      if (record->event.pressed) {
+        if(record->tap.count == 2) {
+          tap_code(MS_BTN1);
+          layer_clear();
+          return false;
+        }
+      return true;
+      } 
+      break;
    /* 
     case DBLQUO: 
    	  if(record->event.pressed) {
@@ -280,30 +294,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_split_3x5_2(LT(5,KC_Q), KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U, KC_Y, KC_QUOT, LGUI_T(KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T), KC_G, KC_M, RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), RGUI_T(KC_O), KC_X, KC_C, KC_D, KC_V, KC_Z, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, KC_DEL, LT(3,KC_BSPC), LT(3,KC_SPC), TG(2)), 
-    [1] = LAYOUT_split_3x5_2(KC_TRNS, MS_BTN2, KC_TRNS, MS_BTN1, KC_TRNS, KC_TRNS, MS_BTN1, MS_WHLU, MS_BTN2, KC_TRNS, KC_TRNS, MS_ACL0, MS_ACL1, MS_ACL2, KC_TRNS, KC_TRNS, MS_LEFT, MS_DOWN, MS_UP, MS_RGHT, KC_TRNS, KC_PGUP, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS, MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+    [1] = LAYOUT_split_3x5_2(KC_TRNS, MS_BTN2, KC_TRNS, ML, KC_TRNS, KC_TRNS, MS_BTN1, MS_WHLU, MS_BTN2, KC_TRNS, KC_TRNS, MS_ACL0, MS_ACL1, MS_ACL2, KC_TRNS, KC_TRNS, MS_LEFT, MS_DOWN, MS_UP, MS_RGHT, KC_TRNS, KC_PGUP, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS, MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
     [2] = LAYOUT_split_3x5_2(KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_UP, KC_DOWN, KC_RGHT, KC_TRNS, KC_TRNS, RSFT_T(KC_NO), RCTL_T(KC_NO), RALT_T(KC_NO), RGUI_T(KC_RGUI), KC_HOME, KC_TRNS, KC_TRNS, KC_END, KC_TRNS, KC_TRNS, KC_TRNS, KC_COMM, KC_DOT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
     [3] = LAYOUT_split_3x5_2(KC_GRV, KC_TILD, KC_HASH, KC_AMPR, KC_PIPE, KC_CIRC, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_EXLM, KC_UNDS, KC_COLN, KC_EQL, KC_DLR, KC_AT, KC_LPRN, KC_RPRN, KC_UNDS, KC_SCLN, KC_PERC, KC_QUES, KC_ASTR, KC_PLUS, KC_BSLS, KC_SLSH, KC_MINS, KC_LT, KC_GT, KC_DQUO, RM_PREV, KC_TRNS, KC_TRNS, RM_NEXT),
     [4] = LAYOUT_split_3x5_2(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, LGUI_T(KC_7), LALT_T(KC_5), LCTL_T(KC_3), LSFT_T(KC_1), CAPG, KC_NO, RSFT_T(KC_2), RCTL_T(KC_4), RALT_T(KC_6), RGUI_T(KC_8), KC_PERC, KC_NO, KC_ASTR, KC_9, KC_NO, KC_SLSH, KC_0, KC_COMM, KC_DOT, KC_NO, KC_NO, KC_TRNS, KC_TRNS, KC_NO),
     [5] = LAYOUT_split_3x5_2(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, QK_BOOT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO)
 };
 
-
 const uint16_t PROGMEM back[] = {LGUI_T(KC_A), KC_X, COMBO_END};
 const uint16_t PROGMEM forward[] = {LSFT_T(KC_T), KC_V, COMBO_END};
 
 //left vertical combos
+const uint16_t PROGMEM uarrow[] = {KC_W, LALT_T(KC_R), COMBO_END};
+const uint16_t PROGMEM darrow[] = {KC_F, LCTL_T(KC_S), COMBO_END};
 const uint16_t PROGMEM pipe[] = {KC_P, LSFT_T(KC_T), COMBO_END};
 const uint16_t PROGMEM splitWin[] = {KC_B, KC_G, COMBO_END};
-const uint16_t PROGMEM leftWindow[] = {KC_W, LALT_T(KC_R), COMBO_END};
 const uint16_t PROGMEM scrollUp[] = {LALT_T(KC_R), KC_C, COMBO_END};
 const uint16_t PROGMEM scrollDown[] = {LCTL_T(KC_S), KC_D, COMBO_END};
 //right vertical combos
-const uint16_t PROGMEM rightWindow[] = {KC_Y, RALT_T(KC_I), COMBO_END};
-const uint16_t PROGMEM larrow[] = {KC_L, RSFT_T(KC_N), COMBO_END};
-const uint16_t PROGMEM rarrow[] = {KC_U, RCTL_T(KC_E), COMBO_END};
+const uint16_t PROGMEM quit[] = {KC_J, KC_M, COMBO_END};
+//const uint16_t PROGMEM larrow[] = {KC_L, RSFT_T(KC_N), COMBO_END};
+const uint16_t PROGMEM larrow[] = {KC_U, RCTL_T(KC_E), COMBO_END};
+const uint16_t PROGMEM rarrow[] = {KC_Y, RALT_T(KC_I), COMBO_END};
 const uint16_t PROGMEM par[] = {RSFT_T(KC_N), KC_H, COMBO_END};
 const uint16_t PROGMEM cur[] = {RCTL_T(KC_E), KC_COMMA, COMBO_END};
 const uint16_t PROGMEM squ[] = {RALT_T(KC_I), KC_DOT, COMBO_END};
+
 //horizontal combos
 const uint16_t PROGMEM wksp1[] = {LSFT_T(KC_T), KC_G, COMBO_END};
 const uint16_t PROGMEM wksp2[] = {KC_M, RSFT_T(KC_N), COMBO_END};
@@ -321,7 +337,8 @@ const uint16_t PROGMEM quo[] = {LALT_T(KC_R), LSFT_T(KC_T), COMBO_END};
 //right horizontal combos
 const uint16_t PROGMEM navlayer[] = {RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
 const uint16_t PROGMEM enter[] = {RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
-const uint16_t PROGMEM quit[] = {KC_J, KC_M, COMBO_END};
+const uint16_t PROGMEM leftWindow[] = {KC_H, KC_COMM, COMBO_END};
+const uint16_t PROGMEM rightWindow[] = {KC_COMM, KC_DOT, COMBO_END};
 const uint16_t PROGMEM dblquo[] = {RSFT_T(KC_N), RALT_T(KC_I), COMBO_END};
 //both side combos
 const uint16_t PROGMEM numlayer[] = {LT(3,KC_BSPC), LT(3,KC_SPC), COMBO_END};
@@ -346,6 +363,8 @@ combo_t key_combos[] = {
     COMBO(dblpgup, PGUP_DBL),
     COMBO(dblpgdn, PGDN_DBL),
     //left vertical combos
+    COMBO(uarrow, KC_UP),
+    COMBO(darrow, KC_DOWN),
     COMBO(pipe, PIPE),
     COMBO(mouselayer, TO(1)),
     //right horizontal combos
