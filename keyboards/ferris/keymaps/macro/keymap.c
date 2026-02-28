@@ -299,6 +299,8 @@ const uint16_t PROGMEM scrollUp[] = {LALT_T(KC_R), KC_C, COMBO_END};
 const uint16_t PROGMEM scrollDown[] = {LCTL_T(KC_S), KC_D, COMBO_END};
 //right vertical combos
 const uint16_t PROGMEM rightWindow[] = {KC_Y, RALT_T(KC_I), COMBO_END};
+const uint16_t PROGMEM larrow[] = {KC_L, RSFT_T(KC_N), COMBO_END};
+const uint16_t PROGMEM rarrow[] = {KC_U, RCTL_T(KC_E), COMBO_END};
 const uint16_t PROGMEM par[] = {RSFT_T(KC_N), KC_H, COMBO_END};
 const uint16_t PROGMEM cur[] = {RCTL_T(KC_E), KC_COMMA, COMBO_END};
 const uint16_t PROGMEM squ[] = {RALT_T(KC_I), KC_DOT, COMBO_END};
@@ -319,8 +321,6 @@ const uint16_t PROGMEM quo[] = {LALT_T(KC_R), LSFT_T(KC_T), COMBO_END};
 //right horizontal combos
 const uint16_t PROGMEM navlayer[] = {RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
 const uint16_t PROGMEM enter[] = {RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
-const uint16_t PROGMEM larrow[] = {KC_H, KC_COMM, COMBO_END};
-const uint16_t PROGMEM rarrow[] = {KC_COMM, KC_DOT, COMBO_END};
 const uint16_t PROGMEM quit[] = {KC_J, KC_M, COMBO_END};
 const uint16_t PROGMEM dblquo[] = {RSFT_T(KC_N), RALT_T(KC_I), COMBO_END};
 //both side combos
