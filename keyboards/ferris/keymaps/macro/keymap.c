@@ -10,13 +10,6 @@
  * edit it directly.
  */
 
-/*cancel rolled modifiers
-
-    
-*/
-
-//Define named constants for customised tap-hold keys 
-
 // macro code test starts here
 enum custom_keycodes {
     SPL = SAFE_RANGE, //open copy of browser window, in another window
@@ -344,12 +337,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT_split_3x5_2(KC_TRNS, MS_BTN2, KC_TRNS, ML, KC_TRNS, KC_TRNS, MS_BTN1, ADD_BAR, MS_BTN2, KC_TRNS, KC_TRNS, MS_ACL0, MS_ACL1, MS_ACL2, NEW_TAB, CLOSE_TAB, MS_LEFT, MS_DOWN, MS_UP, MS_RGHT, KC_WBAK, KC_PGUP, KC_PGDN, KC_WFWD, KC_TRNS, KC_TRNS, MS_WHLL, PREV_TAB, SWITCH_TAB, MS_WHLR, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
     [2] = LAYOUT_split_3x5_2(KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_UP, KC_DOWN, KC_RGHT, KC_TRNS, KC_TRNS, RSFT_T(KC_MUTE), RCTL_T(KC_VOLD), RALT_T(KC_VOLU), RGUI_T(KC_RGUI), KC_HOME, KC_TRNS, KC_TRNS, KC_END, KC_TRNS, KC_TRNS, KC_TRNS, KC_COMM, KC_DOT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
     [3] = LAYOUT_split_3x5_2(KC_GRV, KC_TILD, KC_HASH, KC_AMPR, KC_PIPE, KC_CIRC, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_EXLM, KC_UNDS, KC_COLN, KC_EQL, KC_DLR, KC_AT, KC_LPRN, KC_RPRN, KC_UNDS, KC_SCLN, KC_PERC, KC_QUES, KC_ASTR, KC_PLUS, KC_BSLS, KC_SLSH, KC_MINS, KC_LT, KC_GT, KC_DQUO, RM_PREV, KC_TRNS, KC_TRNS, RM_NEXT),
-    [4] = LAYOUT_split_3x5_2(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, LGUI_T(KC_7), LALT_T(KC_5), LCTL_T(KC_3), LSFT_T(KC_1), CAPG, KC_NO, RSFT_T(KC_2), RCTL_T(KC_4), RALT_T(KC_6), RGUI_T(KC_8), KC_PERC, KC_NO, KC_ASTR, KC_9, KC_NO, KC_SLSH, KC_0, KC_COMM, KC_DOT, KC_NO, KC_NO, KC_TRNS, KC_TRNS, KC_NO),
+    [4] = LAYOUT_split_3x5_2(KC_NO, KC_NO, KC_NO, KC_P, KC_NO, KC_NO, KC_NO, KC_NO, KC_Y, KC_NO, LGUI_T(KC_7), LALT_T(KC_5), LCTL_T(KC_3), LSFT_T(KC_1), CAPG, KC_NO, RSFT_T(KC_2), RCTL_T(KC_4), RALT_T(KC_6), RGUI_T(KC_8), KC_PERC, KC_NO, KC_ASTR, KC_9, KC_NO, KC_SLSH, KC_0, KC_COMM, KC_DOT, KC_NO, KC_NO, KC_TRNS, KC_TRNS, KC_NO),
     [5] = LAYOUT_split_3x5_2(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, QK_BOOT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO)
 };
 
 const uint16_t PROGMEM back[] = {LGUI_T(KC_A), KC_X, COMBO_END};
-const uint16_t PROGMEM forward[] = {LSFT_T(KC_T), KC_V, COMBO_END};
 
 //left vertical combos
 const uint16_t PROGMEM uarrow[] = {KC_W, LALT_T(KC_R), COMBO_END};
@@ -358,6 +350,7 @@ const uint16_t PROGMEM pipe[] = {KC_P, LSFT_T(KC_T), COMBO_END};
 const uint16_t PROGMEM splitWin[] = {KC_B, KC_G, COMBO_END};
 const uint16_t PROGMEM scrollUp[] = {LALT_T(KC_R), KC_C, COMBO_END};
 const uint16_t PROGMEM scrollDown[] = {LCTL_T(KC_S), KC_D, COMBO_END};
+const uint16_t PROGMEM colon[] = {LSFT_T(KC_T), KC_V, COMBO_END};
 //right vertical combos
 const uint16_t PROGMEM quit[] = {KC_J, KC_M, COMBO_END};
 //const uint16_t PROGMEM larrow[] = {KC_L, RSFT_T(KC_N), COMBO_END};
@@ -397,7 +390,6 @@ combo_t key_combos[] = {
     COMBO(back, KC_WBAK),
     COMBO(scrollUp, KC_PGUP), 
     COMBO(scrollDown, KC_PGDN), 
-    COMBO(forward, KC_WFWD),
     //COMBO(leftWindow, RGUI(KC_LEFT)),
     //COMBO(rightWindow, LGUI(KC_RGHT)),
     COMBO(wksp1, LGUI(KC_1)),
@@ -414,6 +406,7 @@ combo_t key_combos[] = {
     COMBO(darrow, KC_DOWN),
     COMBO(pipe, PIPE),
     COMBO(mouselayer, TO(1)),
+    COMBO(colon, KC_COLN),
     //right horizontal combos
     COMBO(quit, LSG(KC_Q)),
     COMBO(numlayer, TO(4)),
