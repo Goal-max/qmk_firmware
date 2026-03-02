@@ -354,7 +354,7 @@ const uint16_t PROGMEM scrollUp[] = {LALT_T(KC_R), KC_C, COMBO_END};
 const uint16_t PROGMEM scrollDown[] = {LCTL_T(KC_S), KC_D, COMBO_END};
 const uint16_t PROGMEM colon[] = {LSFT_T(KC_T), KC_V, COMBO_END};
 //right vertical combos
-const uint16_t PROGMEM quit[] = {KC_J, KC_M, COMBO_END};
+//const uint16_t PROGMEM quit[] = {KC_J, KC_M, COMBO_END};
 //const uint16_t PROGMEM larrow[] = {KC_L, RSFT_T(KC_N), COMBO_END};
 const uint16_t PROGMEM larrow[] = {KC_U, RCTL_T(KC_E), COMBO_END};
 const uint16_t PROGMEM rarrow[] = {KC_Y, RALT_T(KC_I), COMBO_END};
@@ -407,7 +407,7 @@ combo_t key_combos[] = {
     COMBO(mouselayer, TO(1)),
     COMBO(colon, KC_COLN),
     //right horizontal combos
-    COMBO(quit, LSG(KC_Q)),
+    //COMBO(quit, LSG(KC_Q)),
     COMBO(numlayer, TO(4)),
     COMBO(quo, QUO),
     COMBO(dblquo, DBLQUO),
