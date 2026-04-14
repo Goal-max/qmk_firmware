@@ -68,21 +68,47 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case PGUP_DBL:
       if (record->event.pressed) {
-        tap_code(KC_PGUP);
-        tap_code(KC_PGUP);
-        tap_code16(RGUI(KC_LEFT));
-        tap_code(KC_PGUP);
-        tap_code(KC_PGUP);
+        //if shift pressed, do double page arrow up
+  	    if(get_mods() & MOD_BIT(KC_RSFT)) {
+  	     	unregister_mods(MOD_BIT(KC_RSFT));	
+          tap_code(KC_UP);
+          tap_code16(RGUI(KC_LEFT));
+          tap_code(KC_UP);
+          tap_code16(RGUI(KC_LEFT));
+  		    add_mods(MOD_BIT(KC_RSFT));
+  		    return false;
+  	    //if no shift pressed
+        } else {
+          tap_code(KC_PGUP);
+          tap_code(KC_PGUP);
+          tap_code16(RGUI(KC_LEFT));
+          tap_code(KC_PGUP);
+          tap_code(KC_PGUP);
+          return false;
+        }
       }
       return false;
       break;
     case PGDN_DBL:
       if (record->event.pressed) {
-        tap_code(KC_PGDN);
-        tap_code(KC_PGDN);
-        tap_code16(RGUI(KC_LEFT));
-        tap_code(KC_PGDN);
-        tap_code(KC_PGDN);
+        //if shift pressed, do double page arrow down
+  	    if(get_mods() & MOD_BIT(KC_RSFT)) {
+  	     	unregister_mods(MOD_BIT(KC_RSFT));	
+          tap_code(KC_DOWN);
+          tap_code16(RGUI(KC_LEFT));
+          tap_code(KC_DOWN);
+          tap_code16(RGUI(KC_LEFT));
+  		    add_mods(MOD_BIT(KC_RSFT));
+  		    return false;
+  	    //if no shift pressed
+        } else {
+          tap_code(KC_PGDN);
+          tap_code(KC_PGDN);
+          tap_code16(RGUI(KC_LEFT));
+          tap_code(KC_PGDN);
+          tap_code(KC_PGDN);
+          return false;
+        }
       }
       return false;
       break;
