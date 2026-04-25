@@ -49,7 +49,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     	if (record->event.pressed) {
 	      tap_code16(LCTL(KC_L));
     	  tap_code16(LSFT(KC_ENT));
-	      tap_code(KC_PGDN);
 	    }
      	return false;
 	    break;
