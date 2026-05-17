@@ -379,7 +379,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 //left vertical combos
 const uint16_t PROGMEM uarrow[] = {KC_W, LALT_T(KC_R), COMBO_END};
-const uint16_t PROGMEM darrow[] = {KC_F, LCTL_T(KC_S), COMBO_END};
+const uint16_t PROGMEM colon[] = {KC_F, LCTL_T(KC_S), COMBO_END};
 const uint16_t PROGMEM pipe[] = {KC_P, LSFT_T(KC_T), COMBO_END};
 const uint16_t PROGMEM splitWin[] = {KC_B, KC_G, COMBO_END};
 //const uint16_t PROGMEM back[] = {LGUI_T(KC_A), KC_X, COMBO_END};
@@ -388,7 +388,6 @@ const uint16_t PROGMEM scrollDown[] = {LCTL_T(KC_S), KC_D, COMBO_END};
 const uint16_t PROGMEM equal[] = {LSFT_T(KC_T), KC_V, COMBO_END};
 //right vertical combos
 //const uint16_t PROGMEM quit[] = {KC_J, KC_M, COMBO_END};
-//const uint16_t PROGMEM larrow[] = {KC_L, RSFT_T(KC_N), COMBO_END};
 const uint16_t PROGMEM larrow[] = {KC_U, RCTL_T(KC_E), COMBO_END};
 const uint16_t PROGMEM rarrow[] = {KC_Y, RALT_T(KC_I), COMBO_END};
 const uint16_t PROGMEM par[] = {RSFT_T(KC_N), KC_H, COMBO_END};
@@ -434,8 +433,7 @@ combo_t key_combos[] = {
     COMBO(dblpgup, PGUP_DBL),
     COMBO(dblpgdn, PGDN_DBL),
     //left vertical combos
-    COMBO(uarrow, KC_UP),
-    COMBO(darrow, KC_DOWN),
+    COMBO(colon, KC_COLN),
     COMBO(pipe, PIPE),
     COMBO(mouselayer, TO(1)),
     COMBO(equal, KC_EQL),
@@ -445,9 +443,9 @@ combo_t key_combos[] = {
     COMBO(quo, QUO),
     COMBO(dblquo, DBLQUO),
     COMBO(navlayer, TO(2)),
+    //right vertical combos
     COMBO(larrow, LARROW),
     COMBO(rarrow, RARROW),
-    //right vertical combos
     COMBO(par, PAR),
     COMBO(cur, CUR),
     COMBO(squ, SQU),
