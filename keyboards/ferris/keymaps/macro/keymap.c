@@ -379,12 +379,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 //left vertical combos
 const uint16_t PROGMEM uarrow[] = {KC_W, LALT_T(KC_R), COMBO_END};
-const uint16_t PROGMEM colon[] = {KC_F, LCTL_T(KC_S), COMBO_END};
+const uint16_t PROGMEM darrow[] = {KC_F, LCTL_T(KC_S), COMBO_END};
 const uint16_t PROGMEM pipe[] = {KC_P, LSFT_T(KC_T), COMBO_END};
 const uint16_t PROGMEM splitWin[] = {KC_B, KC_G, COMBO_END};
 //const uint16_t PROGMEM back[] = {LGUI_T(KC_A), KC_X, COMBO_END};
-const uint16_t PROGMEM scrollUp[] = {LALT_T(KC_R), KC_C, COMBO_END};
-const uint16_t PROGMEM scrollDown[] = {LCTL_T(KC_S), KC_D, COMBO_END};
+//const uint16_t PROGMEM scrollUp[] = {LALT_T(KC_R), KC_C, COMBO_END};
+const uint16_t PROGMEM colon[] = {LCTL_T(KC_S), KC_D, COMBO_END};
 const uint16_t PROGMEM equal[] = {LSFT_T(KC_T), KC_V, COMBO_END};
 //right vertical combos
 //const uint16_t PROGMEM quit[] = {KC_J, KC_M, COMBO_END};
@@ -421,8 +421,6 @@ combo_t key_combos[] = {
     COMBO(tab, KC_TAB),
     COMBO(escape, KC_ESC),
     COMBO(enter, KC_ENT), // keycodes with modifiers are possible too!
-    COMBO(scrollUp, KC_PGUP), 
-    COMBO(scrollDown, KC_PGDN), 
     COMBO(wksp1, LGUI(KC_1)),
     COMBO(wksp2, LGUI(KC_2)),
     COMBO(wksp3, LGUI(KC_3)),
@@ -430,12 +428,14 @@ combo_t key_combos[] = {
     COMBO(wksp5, LGUI(KC_5)),
     COMBO(wksp6, LGUI(KC_6)),
     //left horizontal combos
+    COMBO(mouselayer, TO(1)),
     COMBO(dblpgup, PGUP_DBL),
     COMBO(dblpgdn, PGDN_DBL),
     //left vertical combos
-    COMBO(colon, KC_COLN),
+    COMBO(uarrow, KC_UP),
+    COMBO(darrow, KC_DOWN),
     COMBO(pipe, PIPE),
-    COMBO(mouselayer, TO(1)),
+    COMBO(colon, KC_COLN),
     COMBO(equal, KC_EQL),
     //right horizontal combos
     //COMBO(quit, LSG(KC_Q)),
