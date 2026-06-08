@@ -127,6 +127,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           return false;
         }
       }
+      layer_clear();
       return true;
      	break;
     case RSFT_T(KC_N):
@@ -350,7 +351,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case BASE_F:
       if(record->event.pressed) {
         layer_clear();
-        tap_code(KC_E);
+        tap_code(KC_F);
         return false;
       }
       return true;
