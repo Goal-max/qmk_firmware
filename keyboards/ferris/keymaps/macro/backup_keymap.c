@@ -30,8 +30,7 @@ enum custom_keycodes {
     SWITCH_TAB, //ctrl + tab
     PREV_TAB, //ctrl + shift + tab
     ADD_BAR, //ctrl l
-    BASE_F, //baselayer and pressed letter f for vimium
-    //NEW_TAB, //ctrl t
+    NEW_TAB, //ctrl t
     CLOSE_TAB, //ctrl w
 };
 
@@ -192,9 +191,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     //escape goes back baselayer if layer set
     case KC_ESC:
       if (record->event.pressed) {
-        //if (IS_LAYER_ON(1) || IS_LAYER_ON(2) || IS_LAYER_ON(4)) {
-        layer_clear();       
-        return true;
+        if (IS_LAYER_ON(1) || IS_LAYER_ON(2) || IS_LAYER_ON(4)) {
+          layer_clear();       
+          return false;
+        }
       }
       return true;
       break;
@@ -303,7 +303,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   	  } 
       return true;
 	    break;
-      /*
     case NEW_TAB: 
    	  if(record->event.pressed) {
         layer_clear();
@@ -313,7 +312,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
   	  } 
 	    break;
-      */
     case CLOSE_TAB: 
    	  if(record->event.pressed) {
         register_mods(MOD_BIT(KC_RCTL));
@@ -347,14 +345,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
   	  } 
 	    break;
-    case BASE_F:
-      if(record->event.pressed) {
-        layer_clear();
-        tap_code(KC_E);
-        return false;
-      }
-      return true;
-      break;
     case RARROW: 
    	  if(record->event.pressed) {
         tap_code(KC_RGHT);
@@ -376,9 +366,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_split_3x5_2(LT(5,KC_Q), KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U, KC_Y, KC_QUOT, LGUI_T(KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T), KC_G, KC_M, RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), RGUI_T(KC_O), KC_X, KC_C, KC_D, KC_V, KC_Z, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, KC_DEL, LT(3,KC_BSPC), LT(3,KC_SPC), TO(4)), 
-    [1] = LAYOUT_split_3x5_2(PREV_TAB, SWITCH_TAB, BASE_F, MS_BTN1, MS_ACL2,
+    [1] = LAYOUT_split_3x5_2(PREV_TAB, SWITCH_TAB, KC_LCTL, MS_BTN1, MS_ACL2,
     KC_TRNS, MS_BTN1, ADD_BAR, MS_BTN2, KC_TRNS, KC_LGUI, KC_LALT, MS_ACL1,
-    MS_BTN1, ADD_BAR, CLOSE_TAB, MS_LEFT, MS_DOWN, MS_UP, MS_RGHT, KC_HOME,
+    MS_ACL0, NEW_TAB, CLOSE_TAB, MS_LEFT, MS_DOWN, MS_UP, MS_RGHT, KC_HOME,
     KC_PGUP, KC_PGDN, KC_END, KC_TRNS, KC_TRNS, MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
     [2] = LAYOUT_split_3x5_2(KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_UP, KC_DOWN, KC_RGHT, KC_TRNS, KC_TRNS, RSFT_T(KC_MUTE), RCTL_T(KC_VOLD), RALT_T(KC_VOLU), RGUI_T(KC_RGUI), KC_HOME, KC_PGUP, KC_PGDN, KC_END, KC_TRNS, KC_TRNS, KC_TRNS, KC_COMM, KC_DOT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
     [3] = LAYOUT_split_3x5_2(KC_GRV, KC_TILD, KC_HASH, KC_AMPR, KC_PIPE, KC_CIRC, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_EXLM, KC_UNDS, KC_COLN, KC_EQL, KC_DLR, KC_AT, KC_LPRN, KC_RPRN, KC_UNDS, KC_SCLN, KC_PERC, KC_QUES, KC_ASTR, KC_PLUS, KC_BSLS, KC_SLSH, KC_MINS, KC_LT, KC_GT, KC_DQUO, RM_PREV, KC_TRNS, KC_TRNS, RM_NEXT),
@@ -412,12 +402,11 @@ const uint16_t PROGMEM wksp4[] = {KC_K, KC_H, COMBO_END};
 const uint16_t PROGMEM wksp5[] = {KC_P, KC_B, COMBO_END};
 const uint16_t PROGMEM wksp6[] = {KC_J, KC_L, COMBO_END};
 //left horizontal combos
-const uint16_t PROGMEM escape[] = {KC_F, KC_P, COMBO_END};
 const uint16_t PROGMEM mouselayer[] = {LALT_T(KC_R), LCTL_T(KC_S), COMBO_END};
 const uint16_t PROGMEM tab[] = {LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T), COMBO_END};
 const uint16_t PROGMEM dblpgup[] = {KC_C, KC_D, COMBO_END};
 const uint16_t PROGMEM dblpgdn[] = {KC_D, KC_V, COMBO_END};
-const uint16_t PROGMEM baselayer[] = {LCTL_T(KC_S), LSFT_T(KC_T), COMBO_END};
+const uint16_t PROGMEM escape[] = {LCTL_T(KC_S), LSFT_T(KC_T), COMBO_END};
 const uint16_t PROGMEM quo[] = {LALT_T(KC_R), LSFT_T(KC_T), COMBO_END};
 //right horizontal combos
 const uint16_t PROGMEM navlayer[] = {RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
@@ -430,6 +419,7 @@ const uint16_t PROGMEM numlayer[] = {LT(3,KC_BSPC), LT(3,KC_SPC), COMBO_END};
 combo_t key_combos[] = {
     COMBO(splitWin, SPL),
     COMBO(tab, KC_TAB),
+    COMBO(escape, KC_ESC),
     COMBO(enter, KC_ENT), // keycodes with modifiers are possible too!
     COMBO(wksp1, LGUI(KC_1)),
     COMBO(wksp2, LGUI(KC_2)),
@@ -438,9 +428,7 @@ combo_t key_combos[] = {
     COMBO(wksp5, LGUI(KC_5)),
     COMBO(wksp6, LGUI(KC_6)),
     //left horizontal combos
-    COMBO(escape, KC_ESC),
     COMBO(mouselayer, TO(1)),
-    COMBO(baselayer, TO(0)),
     COMBO(dblpgup, PGUP_DBL),
     COMBO(dblpgdn, PGDN_DBL),
     //left vertical combos
