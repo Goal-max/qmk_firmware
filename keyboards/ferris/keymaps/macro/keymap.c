@@ -18,6 +18,8 @@ enum custom_keycodes {
     DN_DBL, //2 page down arrow
     PGUP_DBL, //2 page scroll up 
     PGDN_DBL, //2 page scroll down
+    WKSP1, //workspace 1
+    WKSP2, //workspace 2
     COLON, //fg + enter
     EQUAL, //ctrl + z
     PAR, // ()
@@ -44,6 +46,8 @@ enum custom_keycodes {
 #define QUO     LT(QUO, KC_0)   // '' with arrow back function when held
 #define DBLQUO     LT(DBLQUO, KC_0)   // "" with arrow back function when held
 #define PIPE     LT(PIPE, KC_0)   // || with arrow back function when held
+#define WKSP1     LT(WKSP1, KC_0)   // workspace 3 function when held
+#define WKSP2     LT(WKSP2, KC_0)   // workspace 4 function when held
 #define COLON     LT(COLON, KC_0)   // fg + enter function when held
 #define EQUAL     LT(EQUAL, KC_0)   // ctrl + z function when held
 
@@ -202,6 +206,66 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return true;
       break;
+    case WKSP1: 
+      layer_move(1);
+      if (record->tap.count) {
+        if(record->event.pressed) {
+          register_mods(MOD_BIT(KC_RGUI));
+          tap_code(KC_1);
+          unregister_mods(MOD_BIT(KC_RGUI));
+        }
+        return false;
+      //if held
+      } else if (record->event.pressed) {
+        register_mods(MOD_BIT(KC_RGUI));
+        tap_code(KC_3);
+        unregister_mods(MOD_BIT(KC_RGUI));
+      }
+      return false;
+      break;
+    case WKSP2: 
+      if (record->tap.count) {
+        if(record->event.pressed) {
+          register_mods(MOD_BIT(KC_RGUI));
+          tap_code(KC_2);
+          unregister_mods(MOD_BIT(KC_RGUI));
+          layer_move(0);
+        }
+        return false;
+      } else if (record->event.pressed) {
+        register_mods(MOD_BIT(KC_RGUI));
+        tap_code(KC_4);
+        unregister_mods(MOD_BIT(KC_RGUI));
+        layer_move(1);
+      }
+      return false;
+      break;
+      /*
+    case WKSP3: 
+      if (record->tap.count) {
+        if(record->event.pressed) {
+          register_mods(MOD_BIT(KC_RGUI));
+          tap_code(KC_3);
+          unregister_mods(MOD_BIT(KC_RGUI));
+          layer_move(1); 
+        }
+        return false;
+      }
+      return false;
+      break;
+    case WKSP4: 
+      if (record->tap.count) {
+        if(record->event.pressed) {
+          register_mods(MOD_BIT(KC_RGUI));
+          tap_code(KC_1);
+          unregister_mods(MOD_BIT(KC_RGUI));
+          layer_move(1); 
+        }
+        return false;
+      }
+      return false;
+      break;
+      */
     case COLON: 
       if (record->tap.count) {
         if(record->event.pressed) {
@@ -448,8 +512,8 @@ combo_t key_combos[] = {
     COMBO(splitWin, SPL),
     COMBO(tab, KC_TAB),
     COMBO(enter, KC_ENT), // keycodes with modifiers are possible too!
-    COMBO(wksp1, LGUI(KC_1)),
-    COMBO(wksp2, LGUI(KC_2)),
+    COMBO(wksp1, WKSP1),
+    COMBO(wksp2, WKSP2),
     COMBO(wksp3, LGUI(KC_3)),
     COMBO(wksp4, LGUI(KC_4)),
     COMBO(wksp5, LGUI(KC_5)),
