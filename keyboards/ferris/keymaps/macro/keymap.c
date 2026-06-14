@@ -207,7 +207,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true;
       break;
     case WKSP1: 
-      layer_move(1);
+      layer_move(0);
       if (record->tap.count) {
         if(record->event.pressed) {
           register_mods(MOD_BIT(KC_RGUI));
@@ -224,19 +224,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case WKSP2: 
+      layer_move(0);
       if (record->tap.count) {
         if(record->event.pressed) {
           register_mods(MOD_BIT(KC_RGUI));
           tap_code(KC_2);
           unregister_mods(MOD_BIT(KC_RGUI));
-          layer_move(0);
         }
         return false;
       } else if (record->event.pressed) {
         register_mods(MOD_BIT(KC_RGUI));
         tap_code(KC_4);
         unregister_mods(MOD_BIT(KC_RGUI));
-        layer_move(1);
       }
       return false;
       break;
@@ -488,10 +487,10 @@ const uint16_t PROGMEM squ[] = {RALT_T(KC_I), KC_DOT, COMBO_END};
 //horizontal combos
 const uint16_t PROGMEM wksp1[] = {LSFT_T(KC_T), KC_G, COMBO_END};
 const uint16_t PROGMEM wksp2[] = {KC_M, RSFT_T(KC_N), COMBO_END};
-const uint16_t PROGMEM wksp3[] = {KC_V, KC_Z, COMBO_END};
-const uint16_t PROGMEM wksp4[] = {KC_K, KC_H, COMBO_END};
 const uint16_t PROGMEM wksp5[] = {KC_P, KC_B, COMBO_END};
 const uint16_t PROGMEM wksp6[] = {KC_J, KC_L, COMBO_END};
+const uint16_t PROGMEM wksp7[] = {KC_V, KC_Z, COMBO_END};
+const uint16_t PROGMEM wksp8[] = {KC_K, KC_H, COMBO_END};
 //left horizontal combos
 const uint16_t PROGMEM escape[] = {KC_F, KC_P, COMBO_END};
 const uint16_t PROGMEM mouselayer[] = {LALT_T(KC_R), LCTL_T(KC_S), COMBO_END};
@@ -514,10 +513,10 @@ combo_t key_combos[] = {
     COMBO(enter, KC_ENT), // keycodes with modifiers are possible too!
     COMBO(wksp1, WKSP1),
     COMBO(wksp2, WKSP2),
-    COMBO(wksp3, LGUI(KC_3)),
-    COMBO(wksp4, LGUI(KC_4)),
     COMBO(wksp5, LGUI(KC_5)),
     COMBO(wksp6, LGUI(KC_6)),
+    COMBO(wksp7, LGUI(KC_7)),
+    COMBO(wksp8, LGUI(KC_8)),
     //left horizontal combos
     COMBO(escape, KC_ESC),
     COMBO(mouselayer, TO(1)),
