@@ -40,6 +40,8 @@ enum custom_keycodes {
 };
 
 //define variables for customised tap-hold keys
+#define PGUP_DBL     LT(PGUP_DBL, KC_0)   // Double pgup function when held
+#define PGDN_DBL     LT(PGDN_DBL, KC_0)   // Double pgdown function when held
 #define PAR     LT(PAR, KC_0)   // () with arrow back function when held
 #define CUR     LT(CUR, KC_0)   // {} with arrow back function when held
 #define SQU     LT(SQU, KC_0)   // [] with arrow back function when held
@@ -50,6 +52,7 @@ enum custom_keycodes {
 #define WKSP2     LT(WKSP2, KC_0)   // workspace 4 function when held
 #define COLON     LT(COLON, KC_0)   // fg + enter function when held
 #define EQUAL     LT(EQUAL, KC_0)   // ctrl + z function when held
+ 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -77,48 +80,58 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case PGUP_DBL:
-      if (record->event.pressed) {
-        //if shift pressed, do double page arrow up
-  	    if(get_mods() & MOD_BIT(KC_RSFT)) {
-  	     	unregister_mods(MOD_BIT(KC_RSFT));	
-          tap_code(KC_UP);
-          tap_code16(RGUI(KC_LEFT));
-          tap_code(KC_UP);
-          tap_code16(RGUI(KC_LEFT));
-  		    add_mods(MOD_BIT(KC_RSFT));
-  		    return false;
-  	    //if no shift pressed
-        } else {
-          tap_code(KC_PGUP);
-          tap_code(KC_PGUP);
-          tap_code16(RGUI(KC_LEFT));
-          tap_code(KC_PGUP);
-          tap_code(KC_PGUP);
-          return false;
+      if (record->tap.count) {
+        if (record->event.pressed) {
+          //if shift pressed, do double page arrow down
+          if(get_mods() & MOD_BIT(KC_RSFT)) {
+            unregister_mods(MOD_BIT(KC_RSFT));	
+            tap_code(KC_UP);
+            tap_code16(RGUI(KC_LEFT));
+            tap_code(KC_UP);
+            tap_code16(RGUI(KC_LEFT));
+            add_mods(MOD_BIT(KC_RSFT));
+            return false;
+          //if no shift pressed
+          } else {
+            tap_code(KC_PGUP);
+            return false;
+          }
         }
+      //if held
+      } else if (record->event.pressed) {
+        tap_code(KC_PGUP);
+        tap_code(KC_PGUP);
+        tap_code16(RGUI(KC_LEFT));
+        tap_code(KC_PGUP);
+        tap_code(KC_PGUP);
       }
       return false;
       break;
     case PGDN_DBL:
-      if (record->event.pressed) {
-        //if shift pressed, do double page arrow down
-  	    if(get_mods() & MOD_BIT(KC_RSFT)) {
-  	     	unregister_mods(MOD_BIT(KC_RSFT));	
-          tap_code(KC_DOWN);
-          tap_code16(RGUI(KC_LEFT));
-          tap_code(KC_DOWN);
-          tap_code16(RGUI(KC_LEFT));
-  		    add_mods(MOD_BIT(KC_RSFT));
-  		    return false;
-  	    //if no shift pressed
-        } else {
-          tap_code(KC_PGDN);
-          tap_code(KC_PGDN);
-          tap_code16(RGUI(KC_LEFT));
-          tap_code(KC_PGDN);
-          tap_code(KC_PGDN);
-          return false;
+      if (record->tap.count) {
+        if (record->event.pressed) {
+          //if shift pressed, do double page arrow down
+          if(get_mods() & MOD_BIT(KC_RSFT)) {
+            unregister_mods(MOD_BIT(KC_RSFT));	
+            tap_code(KC_DOWN);
+            tap_code16(RGUI(KC_LEFT));
+            tap_code(KC_DOWN);
+            tap_code16(RGUI(KC_LEFT));
+            add_mods(MOD_BIT(KC_RSFT));
+            return false;
+          //if no shift pressed
+          } else {
+            tap_code(KC_PGDN);
+            return false;
+          }
         }
+      //if held
+      } else if (record->event.pressed) {
+        tap_code(KC_PGDN);
+        tap_code(KC_PGDN);
+        tap_code16(RGUI(KC_LEFT));
+        tap_code(KC_PGDN);
+        tap_code(KC_PGDN);
       }
       return false;
       break;
@@ -239,32 +252,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-      /*
-    case WKSP3: 
-      if (record->tap.count) {
-        if(record->event.pressed) {
-          register_mods(MOD_BIT(KC_RGUI));
-          tap_code(KC_3);
-          unregister_mods(MOD_BIT(KC_RGUI));
-          layer_move(1); 
-        }
-        return false;
-      }
-      return false;
-      break;
-    case WKSP4: 
-      if (record->tap.count) {
-        if(record->event.pressed) {
-          register_mods(MOD_BIT(KC_RGUI));
-          tap_code(KC_1);
-          unregister_mods(MOD_BIT(KC_RGUI));
-          layer_move(1); 
-        }
-        return false;
-      }
-      return false;
-      break;
-      */
     case COLON: 
       if (record->tap.count) {
         if(record->event.pressed) {
@@ -361,18 +348,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } 
       return false;
       break;
-    /*
-    case ML: 
-      if (record->event.pressed) {
-        if(record->tap.count == 2) {
-          tap_code(MS_BTN1);
-          layer_clear();
-          return false;
-        }
-      return true;
-      } 
-      break;
-      */
     case CAPG: 
    	  if(record->event.pressed) {
         register_mods(MOD_BIT(KC_RSFT));
