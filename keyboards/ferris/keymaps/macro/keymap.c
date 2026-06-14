@@ -59,7 +59,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         //been programmed to not work to prevent rollover 
         //accidental modifier trigger when typing
 	      tap_code16(RCTL(KC_L));
-    	  tap_code16(LSFT(KC_ENT));
+    	  tap_code16_delay(LSFT(KC_ENT), 500);
 	    }
      	return false;
 	    break;
