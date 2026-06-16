@@ -16,7 +16,7 @@ enum custom_keycodes {
     PIPE, // ||
     UP_DBL, //2 page up arrow
     DN_DBL, //2 page down arrow
-    PGUP_DBL, //2 page scroll up 
+    PGUP_DBL, //2 page scroll up, double page up when held
     PGDN_DBL, //2 page scroll down
     WKSP1, //workspace 1
     WKSP2, //workspace 2
@@ -29,7 +29,7 @@ enum custom_keycodes {
     DBLQUO, // ""
     CAPG, // G
     RARROW, // right arrow
-    LARROW, // right arrow
+    //LARROW1,
     ML, //left mouse
     SWITCH_TAB, //ctrl + tab
     PREV_TAB, //ctrl + shift + tab
@@ -40,7 +40,8 @@ enum custom_keycodes {
 };
 
 //define variables for customised tap-hold keys
-#define PGUP_DBL     LT(PGUP_DBL, KC_0)   // Double pgup function when held
+//#define PGUP_DBL     LT(0, KC_X)   // 
+#define COMM_COPY LT(0, KC_COMM)
 #define PGDN_DBL     LT(PGDN_DBL, KC_0)   // Double pgdown function when held
 #define PAR     LT(PAR, KC_0)   // () with arrow back function when held
 #define CUR     LT(CUR, KC_0)   // {} with arrow back function when held
@@ -52,10 +53,26 @@ enum custom_keycodes {
 #define WKSP2     LT(WKSP2, KC_0)   // workspace 4 function when held
 #define COLON     LT(COLON, KC_0)   // fg + enter function when held
 #define EQUAL     LT(EQUAL, KC_0)   // ctrl + z function when held
+#define LARROW1     LT(0, KC_0)   // alt + back arrow held
  
+//Function for layer-tap key LT(0, kc), where kc is basic keycode
+//Doesn't work if the tap requires more complex function - better write it out
+//as custom variable
+static bool process_tap_or_long_press_key(
+  keyrecord_t* record, uint16_t long_press_keycode) {
+  if (record->tap.count == 0) { //Key is being held
+    if (record->event.pressed) {
+      tap_code16(long_press_keycode);
+    }
+    return false; //skip default handling
+  }
+  return true;
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+    case COMM_COPY:
+      return process_tap_or_long_press_key(record, C(KC_C));
     case SPL:
     	if (record->event.pressed) {
         //using opposite hand modifier as same hand shift/control has 
@@ -79,9 +96,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } 
       return false;
       break;
-    case PGUP_DBL:
-      if (record->tap.count) {
-        if (record->event.pressed) {
+    case LT(0, PGUP_DBL):
+      if (record->tap.count && record->event.pressed) {
           //if shift pressed, do double page arrow down
           if(get_mods() & MOD_BIT(KC_RSFT)) {
             unregister_mods(MOD_BIT(KC_RSFT));	
@@ -96,7 +112,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code(KC_PGUP);
             return false;
           }
-        }
+       return false; 
       //if held
       } else if (record->event.pressed) {
         tap_code(KC_PGUP);
@@ -417,12 +433,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   	  } 
       return true;
 	    break;
-    case LARROW: 
-   	  if(record->event.pressed) {
+    case LARROW1: 
+   	  if(record->tap.count && record->event.pressed) {
         tap_code(KC_LEFT);
         return false;
   	  } 
-      return true;
+      else if (record->event.pressed) {
+        register_mods(MOD_BIT(KC_LALT));
+        tap_code(KC_LEFT);
+        unregister_mods(MOD_BIT(KC_LALT));
+        return false;
+      }
 	    break;
   }
   return true;
@@ -496,7 +517,7 @@ combo_t key_combos[] = {
     COMBO(escape, KC_ESC),
     COMBO(mouselayer, TO(1)),
     COMBO(baselayer, TO(0)),
-    COMBO(dblpgup, PGUP_DBL),
+    COMBO(dblpgup, LT(0, PGUP_DBL)),
     COMBO(dblpgdn, PGDN_DBL),
     //left vertical combos
     COMBO(uarrow, KC_UP),
@@ -511,7 +532,7 @@ combo_t key_combos[] = {
     COMBO(dblquo, DBLQUO),
     COMBO(navlayer, TO(2)),
     //right vertical combos
-    COMBO(larrow, LARROW),
+    COMBO(larrow, LT(0, LARROW1)),
     COMBO(rarrow, RARROW),
     COMBO(par, PAR),
     COMBO(cur, CUR),
