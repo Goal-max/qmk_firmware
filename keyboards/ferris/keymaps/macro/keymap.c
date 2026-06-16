@@ -10,7 +10,7 @@
  * edit it directly.
  */
 
-// macro code test starts here
+//define basic keycodes
 enum custom_keycodes {
     SPL = SAFE_RANGE, //open copy of browser window, in another window
     PIPE, // ||
@@ -39,8 +39,8 @@ enum custom_keycodes {
     CLOSE_TAB, //ctrl w
 };
 
-//define variables for customised tap-hold keys
-//#define PGUP_DBL     LT(0, KC_X)   // 
+//define variables for customised tap-hold keys where tap function is a basic
+//keycode
 #define COMM_COPY LT(0, KC_COMM)
 #define PGDN_DBL     LT(PGDN_DBL, KC_0)   // Double pgdown function when held
 #define PAR     LT(PAR, KC_0)   // () with arrow back function when held
