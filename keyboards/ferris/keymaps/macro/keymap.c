@@ -32,7 +32,7 @@ enum custom_keycodes {
     SWITCH_TAB, //ctrl + tab
     PREV_TAB, //ctrl + shift + tab
     ADD_BAR, //ctrl l
-    BASE_F, //baselayer and pressed letter f for vimium
+    BASE_R, //baselayer and pressed letter R for vimium
     //NEW_TAB, //ctrl t
     CLOSE_TAB, //ctrl w
 };
@@ -417,10 +417,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
   	  } 
 	    break;
-    case BASE_F:
+    case BASE_R:
       if(record->event.pressed) {
         layer_clear();
-        tap_code(KC_F);
+        tap_code(KC_R);
         return false;
       }
       return true;
@@ -437,8 +437,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_split_3x5_2(LT(5,KC_Q), KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U, KC_Y, KC_QUOT, LGUI_T(KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T), KC_G, KC_M, RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), RGUI_T(KC_O), KC_X, KC_C, KC_D, KC_V, KC_Z, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, KC_DEL, LT(3,KC_BSPC), LT(3,KC_SPC), TO(4)), 
-    [1] = LAYOUT_split_3x5_2(PREV_TAB, SWITCH_TAB, BASE_F, MS_BTN1, MS_ACL2,
-    _______, MS_BTN1, ADD_BAR, MS_BTN2, _______, KC_LGUI, KC_LALT, MS_ACL1,
+    [1] = LAYOUT_split_3x5_2(PREV_TAB, SWITCH_TAB, _______, _______, MS_ACL2,
+    _______, MS_BTN1, ADD_BAR, MS_BTN2, _______, KC_LGUI, BASE_R, MS_ACL1,
     MS_BTN1, ADD_BAR, CLOSE_TAB, MS_LEFT, MS_DOWN, MS_UP, MS_RGHT, KC_HOME,
     KC_PGUP, KC_PGDN, KC_END, _______, _______, MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR, _______, _______, _______, _______),
     [2] = LAYOUT_split_3x5_2(_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_UP, KC_DOWN, KC_RGHT, _______, _______, RSFT_T(KC_MUTE), RCTL_T(KC_VOLD), RALT_T(KC_VOLU), RGUI_T(KC_RGUI), KC_HOME, KC_PGUP, KC_PGDN, KC_END, _______, _______, _______, KC_COMM, KC_DOT, _______, _______, _______, _______, _______),
