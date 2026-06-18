@@ -10,7 +10,7 @@
  * edit it directly.
  */
 
-//define basic keycodes
+//define basic keycodes where tap and/or hold is not just a basic keycode
 enum custom_keycodes {
     SPL = SAFE_RANGE, //open copy of browser window, in another window
     PIPE, // ||
@@ -28,8 +28,6 @@ enum custom_keycodes {
     QUO, // ''
     DBLQUO, // ""
     CAPG, // G
-    RARROW, // right arrow
-    //LARROW1,
     ML, //left mouse
     SWITCH_TAB, //ctrl + tab
     PREV_TAB, //ctrl + shift + tab
@@ -39,10 +37,13 @@ enum custom_keycodes {
     CLOSE_TAB, //ctrl w
 };
 
-//define variables for customised tap-hold keys where tap function is a basic
-//keycode
-#define COMM_COPY LT(0, KC_COMM)
-#define PGDN_DBL     LT(PGDN_DBL, KC_0)   // Double pgdown function when held
+//define keycodes for customised tap-hold keys where tap AND hold function is a
+//basic keycode. kc is the tap keycode in LT(0, kc). Cannot have 2 keycodes with
+//same kc in the list - create custom kc in enum to have unique values but this
+//would be more messy having another definition in enum list.
+#define RARROW LT(0, KC_RGHT) //alt + right arrow when held
+#define LARROW LT(0, KC_LEFT) //alt + left arrow when held
+//old codes below to refactor into enum instead
 #define PAR     LT(PAR, KC_0)   // () with arrow back function when held
 #define CUR     LT(CUR, KC_0)   // {} with arrow back function when held
 #define SQU     LT(SQU, KC_0)   // [] with arrow back function when held
@@ -53,11 +54,11 @@ enum custom_keycodes {
 #define WKSP2     LT(WKSP2, KC_0)   // workspace 4 function when held
 #define COLON     LT(COLON, KC_0)   // fg + enter function when held
 #define EQUAL     LT(EQUAL, KC_0)   // ctrl + z function when held
-#define LARROW1     LT(0, KC_0)   // alt + back arrow held
  
 //Function for layer-tap key LT(0, kc), where kc is basic keycode
-//Doesn't work if the tap requires more complex function - better write it out
-//as custom variable
+//Only works if both tap/hold have basic keycodes. Doesn't work if have list of
+//keys to tap, etc.
+//Used in switch/case statements
 static bool process_tap_or_long_press_key(
   keyrecord_t* record, uint16_t long_press_keycode) {
   if (record->tap.count == 0) { //Key is being held
@@ -71,8 +72,6 @@ static bool process_tap_or_long_press_key(
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case COMM_COPY:
-      return process_tap_or_long_press_key(record, C(KC_C));
     case SPL:
     	if (record->event.pressed) {
         //using opposite hand modifier as same hand shift/control has 
@@ -123,7 +122,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case PGDN_DBL:
+    case LT(0, PGDN_DBL):
       if (record->tap.count) {
         if (record->event.pressed) {
           //if shift pressed, do double page arrow down
@@ -426,25 +425,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return true;
       break;
+//below have basic keycodes for tap/hold 
     case RARROW: 
-   	  if(record->event.pressed) {
-        tap_code(KC_RGHT);
-        return false;
-  	  } 
-      return true;
-	    break;
-    case LARROW1: 
-   	  if(record->tap.count && record->event.pressed) {
-        tap_code(KC_LEFT);
-        return false;
-  	  } 
-      else if (record->event.pressed) {
-        register_mods(MOD_BIT(KC_LALT));
-        tap_code(KC_LEFT);
-        unregister_mods(MOD_BIT(KC_LALT));
-        return false;
-      }
-	    break;
+      return process_tap_or_long_press_key(record, LALT(KC_RGHT));
+    case LT(0, LARROW): 
+      return process_tap_or_long_press_key(record, LALT(KC_LEFT));
   }
   return true;
 };
@@ -517,8 +502,8 @@ combo_t key_combos[] = {
     COMBO(escape, KC_ESC),
     COMBO(mouselayer, TO(1)),
     COMBO(baselayer, TO(0)),
-    COMBO(dblpgup, LT(0, PGUP_DBL)),
-    COMBO(dblpgdn, PGDN_DBL),
+    COMBO(dblpgup, LT(0, PGUP_DBL)), //double page up when held
+    COMBO(dblpgdn, LT(0, PGDN_DBL)), //double page down when held
     //left vertical combos
     COMBO(uarrow, KC_UP),
     COMBO(darrow, KC_DOWN),
@@ -532,8 +517,8 @@ combo_t key_combos[] = {
     COMBO(dblquo, DBLQUO),
     COMBO(navlayer, TO(2)),
     //right vertical combos
-    COMBO(larrow, LT(0, LARROW1)),
-    COMBO(rarrow, RARROW),
+    COMBO(larrow, LT(0, LARROW)), //hold causes alt + left arrow
+    COMBO(rarrow, LT(0, RARROW)), //hold causes alt + right arrow
     COMBO(par, PAR),
     COMBO(cur, CUR),
     COMBO(squ, SQU),
