@@ -13,7 +13,6 @@
 //define basic keycodes where tap and/or hold is not just a basic keycode
 enum custom_keycodes {
     SPL = SAFE_RANGE, //open copy of browser window, in another window
-    PIPE, // ||
     UP_DBL, //2 page up arrow
     DN_DBL, //2 page down arrow
     PGUP_DBL, //2 page scroll up, double page up when held
@@ -21,18 +20,18 @@ enum custom_keycodes {
     WKSP1, //workspace 1
     WKSP2, //workspace 2
     COLON, //fg + enter
-    EQUAL, //ctrl + z
-    PAR, // ()
-    CUR, // {}
-    SQU, // []
+    PAR, // () with arrow back function when held
+    CUR, // {} with arrow back function when held
+    SQU, // [] with arrow back function when held
     QUO, // ''
     DBLQUO, // ""
+    PIPE, // ||
     CAPG, // G
     ML, //left mouse
     SWITCH_TAB, //ctrl + tab
     PREV_TAB, //ctrl + shift + tab
     ADD_BAR, //ctrl l
-    BASE_R, //baselayer and pressed letter R for vimium
+    BASE_R, //baselayer and pressed letter r for vimium
     BASE_G, //baselayer and press letter g for vimium g (text input)
     //NEW_TAB, //ctrl t
     CLOSE_TAB, //ctrl w
@@ -44,17 +43,14 @@ enum custom_keycodes {
 //would be more messy having another definition in enum list.
 #define RARROW LT(0, KC_RGHT) //alt + right arrow when held
 #define LARROW LT(0, KC_LEFT) //alt + left arrow when held
+#define EQUAL     LT(0, KC_EQL)   // ctrl + z function when held
 //old codes below to refactor into enum instead
-#define PAR     LT(PAR, KC_0)   // () with arrow back function when held
-#define CUR     LT(CUR, KC_0)   // {} with arrow back function when held
-#define SQU     LT(SQU, KC_0)   // [] with arrow back function when held
 #define QUO     LT(QUO, KC_0)   // '' with arrow back function when held
 #define DBLQUO     LT(DBLQUO, KC_0)   // "" with arrow back function when held
 #define PIPE     LT(PIPE, KC_0)   // || with arrow back function when held
+#define COLON     LT(COLON, KC_0)   // fg + enter function when held
 #define WKSP1     LT(WKSP1, KC_0)   // workspace 3 function when held
 #define WKSP2     LT(WKSP2, KC_0)   // workspace 4 function when held
-#define COLON     LT(COLON, KC_0)   // fg + enter function when held
-#define EQUAL     LT(EQUAL, KC_0)   // ctrl + z function when held
  
 //Function for layer-tap key LT(0, kc), where kc is basic keycode
 //Only works if both tap/hold have basic keycodes. Doesn't work if have list of
@@ -282,23 +278,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } 
       return false;
       break;
-    case EQUAL: 
-      if (record->tap.count) {
-        if(record->event.pressed) {
-	        SEND_STRING("=");
-        }
-        return false;
-        //if held ctrl + z
-      } else if (record->event.pressed) {
-        register_mods(MOD_BIT(KC_RCTL));
-        tap_code(KC_Z);
-        unregister_mods(MOD_BIT(KC_RCTL));
-        return false;
-      } 
-      return false;
-      break;
     //macro for brackets
-    case PAR: 
+    case LT(0, PAR): 
       if (record->tap.count) {
         if(record->event.pressed) {
 	        SEND_STRING("()" SS_TAP(X_LEFT));
@@ -311,7 +292,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } 
       return false;
       break;
-    case CUR:
+    case LT(0, CUR):
       if (record->tap.count) {
         if(record->event.pressed) {
 	        SEND_STRING("{}" SS_TAP(X_LEFT));
@@ -324,7 +305,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } 
       return false;
       break;
-    case SQU: 
+    case LT(0, SQU): 
       if (record->tap.count) {
         if(record->event.pressed) {
 	        SEND_STRING("[]" SS_TAP(X_LEFT));
@@ -435,10 +416,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false; //to not continue normal processing of this key
       break;
 //below have basic keycodes for tap/hold 
+    case EQUAL: 
+      return process_tap_or_long_press_key(record, LCTL(KC_Z));
+      return false;
+      break;
     case RARROW: 
       return process_tap_or_long_press_key(record, LALT(KC_RGHT));
-    case LT(0, LARROW): 
+      break;
+    case LARROW:
       return process_tap_or_long_press_key(record, LALT(KC_LEFT));
+      break;
   }
   return true;
 };
@@ -452,7 +439,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_PGUP, KC_PGDN, KC_END, _______, _______, MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR, _______, _______, _______, _______),
     [2] = LAYOUT_split_3x5_2(_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_UP, KC_DOWN, KC_RGHT, _______, _______, RSFT_T(KC_MUTE), RCTL_T(KC_VOLD), RALT_T(KC_VOLU), RGUI_T(KC_RGUI), KC_HOME, KC_PGUP, KC_PGDN, KC_END, _______, _______, _______, KC_COMM, KC_DOT, _______, _______, _______, _______, _______),
     [3] = LAYOUT_split_3x5_2(KC_GRV, KC_TILD, KC_HASH, KC_AMPR, KC_PIPE, KC_CIRC, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_EXLM, KC_UNDS, KC_COLN, KC_EQL, KC_DLR, KC_AT, KC_LPRN, KC_RPRN, KC_UNDS, KC_SCLN, KC_PERC, KC_QUES, KC_ASTR, KC_PLUS, KC_BSLS, KC_SLSH, KC_MINS, KC_LT, KC_GT, KC_DQUO, RM_PREV, _______, _______, RM_NEXT),
-    [4] = LAYOUT_split_3x5_2(KC_NO, KC_W, KC_NO, KC_P, KC_B, KC_NO, KC_NO, KC_NO, KC_Y, KC_NO, LGUI_T(KC_7), LALT_T(KC_5), LCTL_T(KC_3), LSFT_T(KC_1), CAPG, KC_NO, RSFT_T(KC_2), RCTL_T(KC_4), RALT_T(KC_6), RGUI_T(KC_8), KC_PERC, KC_NO, KC_ASTR, KC_9, KC_NO, KC_SLSH, KC_0, KC_COMM, KC_DOT, KC_NO, KC_NO, _______, _______, KC_NO),
+    [4] = LAYOUT_split_3x5_2(KC_NO, KC_W, KC_NO, KC_P, KC_B, KC_NO, KC_NO,
+    KC_NO, KC_Y, KC_NO, LGUI_T(KC_7), LALT_T(KC_5), LCTL_T(KC_3), LSFT_T(KC_1),
+    CAPG, KC_M, RSFT_T(KC_2), RCTL_T(KC_4), RALT_T(KC_6), RGUI_T(KC_8), KC_PERC, KC_NO, KC_ASTR, KC_9, KC_NO, KC_SLSH, KC_0, KC_COMM, KC_DOT, KC_NO, KC_NO, _______, _______, KC_NO),
     [5] = LAYOUT_split_3x5_2(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, QK_BOOT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO)
 };
 
@@ -524,11 +513,11 @@ combo_t key_combos[] = {
     COMBO(dblquo, DBLQUO),
     COMBO(navlayer, TO(2)),
     //right vertical combos
-    COMBO(larrow, LT(0, LARROW)), //hold causes alt + left arrow
-    COMBO(rarrow, LT(0, RARROW)), //hold causes alt + right arrow
-    COMBO(par, PAR),
-    COMBO(cur, CUR),
-    COMBO(squ, SQU),
+    COMBO(larrow, LARROW), //hold causes alt + left arrow
+    COMBO(rarrow, RARROW), //hold causes alt + right arrow
+    COMBO(par, LT(0, PAR)),
+    COMBO(cur, LT(0, CUR)),
+    COMBO(squ, LT(0, SQU)),
     
 };
 
