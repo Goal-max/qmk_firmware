@@ -437,9 +437,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_split_3x5_2(LT(5,KC_Q), KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U, KC_Y, KC_QUOT, LGUI_T(KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T), KC_G, KC_M, RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), RGUI_T(KC_O), KC_X, KC_C, KC_D, KC_V, KC_Z, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, KC_DEL, LT(3,KC_BSPC), LT(3,KC_SPC), TO(4)), 
-    [1] = LAYOUT_split_3x5_2(PREV_TAB, SWITCH_TAB, _______, _______, MS_ACL2,
+    [1] = LAYOUT_split_3x5_2(_______, PREV_TAB, SWITCH_TAB, _______, MS_ACL2,
     _______, MS_BTN1, ADD_BAR, MS_BTN2, _______, KC_LGUI, BASE_R, MS_ACL1,
-    MS_BTN1, ADD_BAR, CLOSE_TAB, MS_LEFT, MS_DOWN, MS_UP, MS_RGHT, KC_HOME,
+    LSFT_T(MS_BTN1), _______, CLOSE_TAB, MS_LEFT, MS_DOWN, MS_UP, MS_RGHT, KC_HOME,
     KC_PGUP, KC_PGDN, KC_END, _______, _______, MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR, _______, _______, _______, _______),
     [2] = LAYOUT_split_3x5_2(_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_UP, KC_DOWN, KC_RGHT, _______, _______, RSFT_T(KC_MUTE), RCTL_T(KC_VOLD), RALT_T(KC_VOLU), RGUI_T(KC_RGUI), KC_HOME, KC_PGUP, KC_PGDN, KC_END, _______, _______, _______, KC_COMM, KC_DOT, _______, _______, _______, _______, _______),
     [3] = LAYOUT_split_3x5_2(KC_GRV, KC_TILD, KC_HASH, KC_AMPR, KC_PIPE, KC_CIRC, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_EXLM, KC_UNDS, KC_COLN, KC_EQL, KC_DLR, KC_AT, KC_LPRN, KC_RPRN, KC_UNDS, KC_SCLN, KC_PERC, KC_QUES, KC_ASTR, KC_PLUS, KC_BSLS, KC_SLSH, KC_MINS, KC_LT, KC_GT, KC_DQUO, RM_PREV, _______, _______, RM_NEXT),
@@ -458,7 +458,6 @@ const uint16_t PROGMEM splitWin[] = {KC_B, KC_G, COMBO_END};
 const uint16_t PROGMEM colon[] = {LCTL_T(KC_S), KC_D, COMBO_END};
 const uint16_t PROGMEM equal[] = {LSFT_T(KC_T), KC_V, COMBO_END};
 //right vertical combos
-//const uint16_t PROGMEM quit[] = {KC_J, KC_M, COMBO_END};
 const uint16_t PROGMEM larrow[] = {KC_U, RCTL_T(KC_E), COMBO_END};
 const uint16_t PROGMEM rarrow[] = {KC_Y, RALT_T(KC_I), COMBO_END};
 const uint16_t PROGMEM par[] = {RSFT_T(KC_N), KC_H, COMBO_END};
@@ -511,7 +510,6 @@ combo_t key_combos[] = {
     COMBO(colon, COLON),
     COMBO(equal, EQUAL),
     //right horizontal combos
-    //COMBO(quit, LSG(KC_Q)),
     COMBO(numlayer, TO(4)),
     COMBO(quo, QUO),
     COMBO(dblquo, DBLQUO),
