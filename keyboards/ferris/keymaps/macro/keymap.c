@@ -23,9 +23,9 @@ enum custom_keycodes {
     PAR, // () with arrow back function when held
     CUR, // {} with arrow back function when held
     SQU, // [] with arrow back function when held
-    QUO, // ''
-    DBLQUO, // ""
-    PIPE, // ||
+    QUO, // '' with arrow back function when held
+    DBLQUO, // "" with arrow back function when held
+    PIPE, // || with arrow back function when held
     CAPG, // G
     ML, //left mouse
     SWITCH_TAB, //ctrl + tab
@@ -45,9 +45,6 @@ enum custom_keycodes {
 #define LARROW LT(0, KC_LEFT) //alt + left arrow when held
 #define EQUAL     LT(0, KC_EQL)   // ctrl + z function when held
 //old codes below to refactor into enum instead
-#define QUO     LT(QUO, KC_0)   // '' with arrow back function when held
-#define DBLQUO     LT(DBLQUO, KC_0)   // "" with arrow back function when held
-#define PIPE     LT(PIPE, KC_0)   // || with arrow back function when held
 #define COLON     LT(COLON, KC_0)   // fg + enter function when held
 #define WKSP1     LT(WKSP1, KC_0)   // workspace 3 function when held
 #define WKSP2     LT(WKSP2, KC_0)   // workspace 4 function when held
@@ -79,7 +76,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	    }
      	return false;
 	    break;
-    case PIPE: 
+    case LT(0, PIPE): 
       if (record->tap.count) {
         if(record->event.pressed) {
 	        SEND_STRING("||" SS_TAP(X_LEFT));
@@ -319,7 +316,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     //below needs to be added to combos to use right pinky keys
-    case QUO: 
+    case LT(0, QUO): 
       if (record->tap.count) {
         if(record->event.pressed) {
 	        SEND_STRING("''" SS_TAP(X_LEFT));
@@ -332,7 +329,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } 
       return false;
       break;
-    case DBLQUO: 
+    case LT(0, DBLQUO): 
       if (record->tap.count) {
         if(record->event.pressed) {
 	        SEND_STRING("\"\"" SS_TAP(X_LEFT));
@@ -504,13 +501,13 @@ combo_t key_combos[] = {
     //left vertical combos
     COMBO(uarrow, KC_UP),
     COMBO(darrow, KC_DOWN),
-    COMBO(pipe, PIPE),
+    COMBO(pipe, LT(0, PIPE)),
     COMBO(colon, COLON),
     COMBO(equal, EQUAL),
     //right horizontal combos
     COMBO(numlayer, TO(4)),
-    COMBO(quo, QUO),
-    COMBO(dblquo, DBLQUO),
+    COMBO(quo, LT(0, QUO)),
+    COMBO(dblquo, LT(0, DBLQUO)),
     COMBO(navlayer, TO(2)),
     //right vertical combos
     COMBO(larrow, LARROW), //hold causes alt + left arrow
