@@ -35,6 +35,7 @@ enum custom_keycodes {
     BASE_G, //baselayer and press letter g for vimium g (text input)
     //NEW_TAB, //ctrl t
     CLOSE_TAB, //ctrl w
+    UARROW  //up arrow + enter when held
 };
 
 //define keycodes for customised tap-hold keys where tap AND hold function is a
@@ -409,6 +410,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false; //to not continue normal processing of this key
       break;
+    case LT(0, UARROW):
+      if(record->tap.count && record->event.pressed) {
+        tap_code(KC_UP);
+        return false;
+      } else if (record->event.pressed) {
+        tap_code(KC_UP);
+        tap_code(KC_ENT);
+        return false;
+      }
+      return false;
+      break;
 //below have basic keycodes for tap/hold 
     case EQUAL: 
       return process_tap_or_long_press_key(record, LCTL(KC_Z));
@@ -496,7 +508,7 @@ combo_t key_combos[] = {
     COMBO(dblpgup, LT(0, PGUP_DBL)), //double page up when held
     COMBO(dblpgdn, LT(0, PGDN_DBL)), //double page down when held
     //left vertical combos
-    COMBO(uarrow, KC_UP),
+    COMBO(uarrow, LT(0, UARROW)),
     COMBO(darrow, KC_DOWN),
     COMBO(pipe, LT(0, PIPE)),
     COMBO(colon, LT(0, COLON)),
