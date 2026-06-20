@@ -477,14 +477,14 @@ const uint16_t PROGMEM wksp7[] = {KC_V, KC_Z, COMBO_END};
 const uint16_t PROGMEM wksp8[] = {KC_K, KC_H, COMBO_END};
 //left horizontal combos
 const uint16_t PROGMEM escape[] = {KC_F, KC_P, COMBO_END};
-const uint16_t PROGMEM mouselayer[] = {LALT_T(KC_R), LCTL_T(KC_S), COMBO_END};
+const uint16_t PROGMEM mouselayer[] = {KC_W, KC_F, LALT_T(KC_R), LCTL_T(KC_S), COMBO_END};
+const uint16_t PROGMEM baselayer[] = {KC_F, KC_P, LCTL_T(KC_S), LSFT_T(KC_T), COMBO_END};
 const uint16_t PROGMEM tab[] = {LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T), COMBO_END};
 const uint16_t PROGMEM dblpgup[] = {KC_C, KC_D, COMBO_END};
 const uint16_t PROGMEM dblpgdn[] = {KC_D, KC_V, COMBO_END};
-const uint16_t PROGMEM baselayer[] = {LCTL_T(KC_S), LSFT_T(KC_T), COMBO_END};
 const uint16_t PROGMEM quo[] = {LALT_T(KC_R), LSFT_T(KC_T), COMBO_END};
 //right horizontal combos
-const uint16_t PROGMEM navlayer[] = {RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
+const uint16_t PROGMEM navlayer[] = {KC_U, KC_Y, RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
 const uint16_t PROGMEM enter[] = {RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
 //const uint16_t PROGMEM leftWindow[] = {KC_H, KC_COMM, COMBO_END};
 //const uint16_t PROGMEM rightWindow[] = {KC_COMM, KC_DOT, COMBO_END};
