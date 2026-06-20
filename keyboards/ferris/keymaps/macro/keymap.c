@@ -17,9 +17,9 @@ enum custom_keycodes {
     DN_DBL, //2 page down arrow
     PGUP_DBL, //2 page scroll up, double page up when held
     PGDN_DBL, //2 page scroll down
-    WKSP1, //workspace 1
-    WKSP2, //workspace 2
-    COLON, //fg + enter
+    WKSP1, // workspace 3 function when held
+    WKSP2, // workspace 4 function when held
+    COLON, // fg + enter function when held
     PAR, // () with arrow back function when held
     CUR, // {} with arrow back function when held
     SQU, // [] with arrow back function when held
@@ -40,14 +40,11 @@ enum custom_keycodes {
 //define keycodes for customised tap-hold keys where tap AND hold function is a
 //basic keycode. kc is the tap keycode in LT(0, kc). Cannot have 2 keycodes with
 //same kc in the list - create custom kc in enum to have unique values but this
-//would be more messy having another definition in enum list.
+//would be more messy defining 2 variables. Better to put LT(0, <enum>) in combo
+//list, where enum is custom keycode in enum list.
 #define RARROW LT(0, KC_RGHT) //alt + right arrow when held
 #define LARROW LT(0, KC_LEFT) //alt + left arrow when held
 #define EQUAL     LT(0, KC_EQL)   // ctrl + z function when held
-//old codes below to refactor into enum instead
-#define COLON     LT(COLON, KC_0)   // fg + enter function when held
-#define WKSP1     LT(WKSP1, KC_0)   // workspace 3 function when held
-#define WKSP2     LT(WKSP2, KC_0)   // workspace 4 function when held
  
 //Function for layer-tap key LT(0, kc), where kc is basic keycode
 //Only works if both tap/hold have basic keycodes. Doesn't work if have list of
@@ -228,7 +225,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return true;
       break;
-    case WKSP1: 
+    case LT(0, WKSP1): 
       layer_move(0);
       if (record->tap.count) {
         if(record->event.pressed) {
@@ -245,7 +242,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case WKSP2: 
+    case LT(0, WKSP2): 
       layer_move(0);
       if (record->tap.count) {
         if(record->event.pressed) {
@@ -261,7 +258,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case COLON: 
+    case LT(0, COLON): 
       if (record->tap.count) {
         if(record->event.pressed) {
 	        SEND_STRING(":");
@@ -486,8 +483,8 @@ combo_t key_combos[] = {
     COMBO(splitWin, SPL),
     COMBO(tab, KC_TAB),
     COMBO(enter, KC_ENT), // keycodes with modifiers are possible too!
-    COMBO(wksp1, WKSP1),
-    COMBO(wksp2, WKSP2),
+    COMBO(wksp1, LT(0, WKSP1)),
+    COMBO(wksp2, LT(0, WKSP2)),
     COMBO(wksp5, LGUI(KC_5)),
     COMBO(wksp6, LGUI(KC_6)),
     COMBO(wksp7, LGUI(KC_7)),
@@ -502,7 +499,7 @@ combo_t key_combos[] = {
     COMBO(uarrow, KC_UP),
     COMBO(darrow, KC_DOWN),
     COMBO(pipe, LT(0, PIPE)),
-    COMBO(colon, COLON),
+    COMBO(colon, LT(0, COLON)),
     COMBO(equal, EQUAL),
     //right horizontal combos
     COMBO(numlayer, TO(4)),
