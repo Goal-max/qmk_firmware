@@ -27,6 +27,7 @@ enum custom_keycodes {
     DBLQUO, // "" with arrow back function when held
     PIPE, // || with arrow back function when held
     CAPG, // G
+    LowerD, // d key for vim
     ML, //left mouse
     SWITCH_TAB, //ctrl + tab
     PREV_TAB, //ctrl + shift + tab
@@ -142,8 +143,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    //cancel rolled modifiers of same hand. Prevents modifiers accidental
+    //left hand cancel rolled modifiers of same hand. Prevents modifiers accidental
     //press e.g. when press s and t key, stops ctrl + t behaviour.
+    case LCTL_T(KC_S):
+      if (record->event.pressed && record->tap.count > 0) {
+        if (get_mods() & MOD_BIT(KC_LALT)) {
+          unregister_mods(MOD_BIT(KC_LALT));
+          tap_code(KC_R);
+          tap_code(KC_S);
+          add_mods(MOD_BIT(KC_LALT));
+          return false;
+        }
+      }
+      layer_clear();
+      return true;
+     	break;
     case LSFT_T(KC_T):
       if (record->event.pressed && record->tap.count > 0) {
         if (get_mods() & MOD_BIT(KC_LCTL)) {
@@ -157,6 +171,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       layer_clear();
       return true;
      	break;
+    //right hand cancel rolled modifiers
     case RSFT_T(KC_N):
       if (record->event.pressed && record->tap.count > 0) {
         if (get_mods() & MOD_BIT(KC_RCTL)) {
@@ -164,6 +179,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           tap_code(KC_E);
           tap_code(KC_N);
           add_mods(MOD_BIT(KC_RCTL));
+          return false;
+        }
+      }
+      return true;
+    	break;
+    case RCTL_T(KC_E):
+      if (record->event.pressed && record->tap.count > 0) {
+        if (get_mods() & MOD_BIT(KC_RALT)) {
+          unregister_mods(MOD_BIT(KC_RALT));
+          tap_code(KC_I);
+          tap_code(KC_E);
+          add_mods(MOD_BIT(KC_RALT));
           return false;
         }
       }
@@ -350,6 +377,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   	  } 
       return true;
 	    break;
+    case LowerD: 
+   	  if(record->event.pressed) {
+        tap_code(KC_D);
+        layer_clear();
+        return false;
+  	  } 
+      return true;
+	    break;
       /*
     case NEW_TAB: 
    	  if(record->event.pressed) {
@@ -441,14 +476,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_split_3x5_2(LT(5,KC_Q), KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U, KC_Y, KC_QUOT, LGUI_T(KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T), KC_G, KC_M, RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), RGUI_T(KC_O), KC_X, KC_C, KC_D, KC_V, KC_Z, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, KC_DEL, LT(3,KC_BSPC), LT(3,KC_SPC), TO(4)), 
     [1] = LAYOUT_split_3x5_2(_______, PREV_TAB, SWITCH_TAB, _______, MS_ACL2,
     CLOSE_TAB, _______, ADD_BAR, MS_BTN2, _______, KC_LGUI, BASE_R, MS_ACL1,
-    MS_BTN1, BASE_G, _______, MS_LEFT, MS_DOWN, MS_UP, MS_RGHT, KC_HOME,
-    KC_PGUP, KC_PGDN, KC_END, _______, _______, MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR, _______, _______, _______, _______),
+    MS_BTN1, BASE_G, _______, MS_LEFT, MS_DOWN, MS_UP, MS_RGHT, LGUI_T(KC_HOME),
+    KC_PGUP, KC_PGDN, LSFT_T(KC_END), _______, _______, RSFT_T(MS_WHLL),
+    MS_WHLD, MS_WHLU, RGUI_T(MS_WHLR), _______, _______, _______, _______),
     [2] = LAYOUT_split_3x5_2(_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_UP, KC_DOWN, KC_RGHT, _______, _______, RSFT_T(KC_MUTE), RCTL_T(KC_VOLD), RALT_T(KC_VOLU), RGUI_T(KC_RGUI), KC_HOME, KC_PGUP, KC_PGDN, KC_END, _______, _______, _______, KC_COMM, KC_DOT, _______, _______, _______, _______, _______),
     [3] = LAYOUT_split_3x5_2(KC_GRV, KC_TILD, KC_HASH, KC_AMPR, KC_PIPE, KC_CIRC, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_EXLM, KC_UNDS, KC_COLN, KC_EQL, KC_DLR, KC_AT, KC_LPRN, KC_RPRN, KC_UNDS, KC_SCLN, KC_PERC, KC_QUES, KC_ASTR, KC_PLUS, KC_BSLS, KC_SLSH, KC_MINS, KC_LT, KC_GT, KC_DQUO, RM_PREV, _______, _______, RM_NEXT),
-    [4] = LAYOUT_split_3x5_2(KC_NO, KC_W, KC_NO, KC_P, KC_B, KC_NO, KC_NO,
-    KC_NO, KC_Y, KC_NO, LGUI_T(KC_7), LALT_T(KC_5), LCTL_T(KC_3), LSFT_T(KC_1),
-    CAPG, KC_M, RSFT_T(KC_2), RCTL_T(KC_4), RALT_T(KC_6), RGUI_T(KC_8), KC_PERC, KC_NO, KC_ASTR, KC_9, KC_NO, KC_SLSH, KC_0, KC_COMM, KC_DOT, KC_NO, KC_NO, _______, _______, KC_NO),
-    [5] = LAYOUT_split_3x5_2(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, QK_BOOT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO)
+    [4] = LAYOUT_split_3x5_2(_______, KC_W, _______, KC_P, KC_B, _______, _______,
+    _______, KC_Y, _______, LGUI_T(KC_7), LALT_T(KC_5), LCTL_T(KC_3), LSFT_T(KC_1),
+    CAPG, KC_M, RSFT_T(KC_2), RCTL_T(KC_4), RALT_T(KC_6), RGUI_T(KC_8), KC_PERC,
+    _______, LowerD, KC_9, _______, KC_SLSH, KC_0, KC_COMM, KC_DOT, _______, _______, _______, _______, _______),
+    [5] = LAYOUT_split_3x5_2(_______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______)
 };
 
 
