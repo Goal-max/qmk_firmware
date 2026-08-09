@@ -38,8 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_USB_TIMEOUT_POLL 10
 
 // Pick good defaults for enabling homerow modifiers
-#define TAPPING_TERM 250
-#define PERMISSIVE_HOLD
+#define TAPPING_TERM 200
 #define QUICK_TAP_TERM 0
 #define CHORDAL_HOLD 
 #define FLOW_TAP_TERM 150 
