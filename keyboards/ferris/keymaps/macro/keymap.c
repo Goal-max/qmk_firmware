@@ -145,7 +145,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     //left hand cancel rolled modifiers of same hand. Prevents modifiers accidental
     //press e.g. when press s and t key, stops ctrl + t behaviour.
-    case LCTL_T(KC_S):
+    case KC_S:
       if (record->event.pressed && record->tap.count > 0) {
         if (get_mods() & MOD_BIT(KC_LALT)) {
           unregister_mods(MOD_BIT(KC_LALT));
@@ -158,7 +158,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       layer_clear();
       return true;
      	break;
-    case LSFT_T(KC_T):
+    case KC_T:
       if (record->event.pressed && record->tap.count > 0) {
         if (get_mods() & MOD_BIT(KC_LCTL)) {
           unregister_mods(MOD_BIT(KC_LCTL));
@@ -172,7 +172,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true;
      	break;
     //right hand cancel rolled modifiers
-    case RSFT_T(KC_N):
+    case KC_N:
       if (record->event.pressed && record->tap.count > 0) {
         if (get_mods() & MOD_BIT(KC_RCTL)) {
           unregister_mods(MOD_BIT(KC_RCTL));
@@ -184,7 +184,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return true;
     	break;
-    case RCTL_T(KC_E):
+    case KC_E:
       if (record->event.pressed && record->tap.count > 0) {
         if (get_mods() & MOD_BIT(KC_RALT)) {
           unregister_mods(MOD_BIT(KC_RALT));
@@ -473,59 +473,65 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT_split_3x5_2(LT(5,KC_Q), KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U, KC_Y, KC_QUOT, LGUI_T(KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T), KC_G, KC_M, RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), RGUI_T(KC_O), KC_X, KC_C, KC_D, KC_V, KC_Z, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, KC_DEL, LT(3,KC_BSPC), LT(3,KC_SPC), TO(4)), 
+    [0] = LAYOUT_split_3x5_2(LT(5,KC_Q), KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U, KC_Y, KC_QUOT, KC_A, KC_R, KC_S, KC_T, KC_G, KC_M, KC_N, KC_E, KC_I, KC_O, LGUI_T(KC_X), LALT_T(KC_C), LCTL_T(KC_D), LSFT_T(KC_V), KC_Z, KC_K, RSFT_T(KC_H), RCTL_T(KC_COMM), RALT_T(KC_DOT), RGUI_T(KC_SLSH), KC_DEL, LT(3,KC_BSPC), LT(3,KC_SPC), TO(4)), 
     [1] = LAYOUT_split_3x5_2(KC_LEFT, KC_UP, KC_DOWN, KC_RGHT, MS_ACL2,
-    CLOSE_TAB, KC_RSFT, RCTL_T(ADD_BAR), RALT_T(MS_BTN2), KC_RGUI, KC_LGUI, BASE_R, MS_ACL1,
+    CLOSE_TAB, KC_RSFT, ADD_BAR, RALT_T(MS_BTN2), KC_RGUI, KC_LGUI, BASE_R, MS_ACL1,
     MS_BTN1, BASE_G, _______, MS_LEFT, MS_DOWN, MS_UP, MS_RGHT, LGUI_T(KC_HOME),
     KC_PGUP, KC_PGDN, LSFT_T(KC_END), _______, _______, RSFT_T(MS_WHLL),
     RCTL_T(MS_WHLD), RALT_T(MS_WHLU), RGUI_T(MS_WHLR), _______, _______, _______, _______),
-    [2] = LAYOUT_split_3x5_2(_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_UP, KC_DOWN, KC_RGHT, _______, _______, RSFT_T(KC_MUTE), RCTL_T(KC_VOLD), RALT_T(KC_VOLU), RGUI_T(KC_RGUI), KC_HOME, KC_PGUP, KC_PGDN, KC_END, _______, _______, _______, KC_COMM, KC_DOT, _______, _______, _______, _______, _______),
-    [3] = LAYOUT_split_3x5_2(KC_GRV, KC_TILD, KC_HASH, KC_AMPR, KC_PIPE, KC_CIRC, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_EXLM, KC_UNDS, KC_COLN, KC_EQL, KC_DLR, KC_AT, KC_LPRN, KC_RPRN, KC_UNDS, KC_SCLN, KC_PERC, KC_QUES, KC_ASTR, KC_PLUS, KC_BSLS, KC_SLSH, KC_MINS, KC_LT, KC_GT, KC_DQUO, RM_PREV, _______, _______, RM_NEXT),
+    [2] = LAYOUT_split_3x5_2(_______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, KC_LEFT, KC_UP, KC_DOWN,
+    KC_RGHT, _______, _______, KC_MUTE, KC_VOLD,
+    KC_VOLU, _______, LGUI_T(KC_HOME), LALT_T(KC_PGUP),
+    LCTL_T(KC_PGDN), LSFT_T(KC_END),
+    _______, _______, KC_RSFT, KC_RCTL, KC_RALT, KC_RGUI, _______, _______, _______, _______),
+    [3] = LAYOUT_split_3x5_2(KC_GRV, KC_TILD, KC_HASH, KC_AMPR, KC_PIPE, KC_CIRC, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_EXLM, KC_UNDS, KC_COLN, KC_EQL, KC_DLR, KC_AT, KC_LPRN, KC_RPRN, KC_UNDS, KC_SCLN, KC_PERC, KC_QUES, KC_ASTR, KC_PLUS, KC_BSLS, RGUI_T(KC_SLSH), KC_MINS, KC_LT, KC_GT, KC_DQUO, RM_PREV, _______, _______, RM_NEXT),
     [4] = LAYOUT_split_3x5_2(_______, KC_W, _______, KC_P, KC_B, _______, _______,
-    _______, KC_Y, _______, LGUI_T(KC_7), LALT_T(KC_5), LCTL_T(KC_3), LSFT_T(KC_1),
-    CAPG, KC_M, RSFT_T(KC_2), RCTL_T(KC_4), RALT_T(KC_6), RGUI_T(KC_8), KC_PERC,
-    _______, LowerD, KC_9, _______, KC_SLSH, KC_0, KC_COMM, KC_DOT, _______, _______, _______, _______, _______),
+    _______, KC_Y, _______, KC_7, KC_5, KC_3, KC_1,
+    CAPG, KC_M, KC_2, KC_4, KC_6, KC_8, KC_LGUI,
+    KC_LALT, LCTL_T(LowerD), LSFT_T(KC_9), _______, _______, RSFT_T(KC_0),
+    RCTL_T(KC_COMM), RALT_T(KC_DOT), KC_RGUI, _______, _______, _______, _______),
     [5] = LAYOUT_split_3x5_2(_______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______)
 };
 
 
 //left vertical combos
-const uint16_t PROGMEM uarrow[] = {KC_W, LALT_T(KC_R), COMBO_END};
-const uint16_t PROGMEM darrow[] = {KC_F, LCTL_T(KC_S), COMBO_END};
-const uint16_t PROGMEM pipe[] = {KC_P, LSFT_T(KC_T), COMBO_END};
+const uint16_t PROGMEM uarrow[] = {KC_W, KC_R, COMBO_END};
+const uint16_t PROGMEM darrow[] = {KC_F, KC_S, COMBO_END};
+const uint16_t PROGMEM pipe[] = {KC_P, KC_T, COMBO_END};
 const uint16_t PROGMEM splitWin[] = {KC_B, KC_G, COMBO_END};
-//const uint16_t PROGMEM back[] = {LGUI_T(KC_A), KC_X, COMBO_END};
-//const uint16_t PROGMEM scrollUp[] = {LALT_T(KC_R), KC_C, COMBO_END};
-const uint16_t PROGMEM colon[] = {LCTL_T(KC_S), KC_D, COMBO_END};
-const uint16_t PROGMEM equal[] = {LSFT_T(KC_T), KC_V, COMBO_END};
+//const uint16_t PROGMEM back[] = {KC_A, LGUI_T(KC_X), COMBO_END};
+//const uint16_t PROGMEM scrollUp[] = {KC_R, LALT_T(KC_C), COMBO_END};
+const uint16_t PROGMEM colon[] = {KC_S, LCTL_T(KC_D), COMBO_END};
+const uint16_t PROGMEM equal[] = {KC_T, LSFT_T(KC_V), COMBO_END};
 //right vertical combos
-const uint16_t PROGMEM larrow[] = {KC_U, RCTL_T(KC_E), COMBO_END};
-const uint16_t PROGMEM rarrow[] = {KC_Y, RALT_T(KC_I), COMBO_END};
-const uint16_t PROGMEM par[] = {RSFT_T(KC_N), KC_H, COMBO_END};
-const uint16_t PROGMEM cur[] = {RCTL_T(KC_E), KC_COMMA, COMBO_END};
-const uint16_t PROGMEM squ[] = {RALT_T(KC_I), KC_DOT, COMBO_END};
+const uint16_t PROGMEM larrow[] = {KC_U, KC_E, COMBO_END};
+const uint16_t PROGMEM rarrow[] = {KC_Y, KC_I, COMBO_END};
+const uint16_t PROGMEM par[] = {KC_N, RSFT_T(KC_H), COMBO_END};
+const uint16_t PROGMEM cur[] = {KC_E, RCTL_T(KC_COMM), COMBO_END};
+const uint16_t PROGMEM squ[] = {KC_I, RALT_T(KC_DOT), COMBO_END};
 
 //horizontal combos
-const uint16_t PROGMEM wksp1[] = {LSFT_T(KC_T), KC_G, COMBO_END};
-const uint16_t PROGMEM wksp2[] = {KC_M, RSFT_T(KC_N), COMBO_END};
+const uint16_t PROGMEM wksp1[] = {KC_T, KC_G, COMBO_END};
+const uint16_t PROGMEM wksp2[] = {KC_M, KC_N, COMBO_END};
 const uint16_t PROGMEM wksp5[] = {KC_P, KC_B, COMBO_END};
 const uint16_t PROGMEM wksp6[] = {KC_J, KC_L, COMBO_END};
-const uint16_t PROGMEM wksp7[] = {KC_V, KC_Z, COMBO_END};
-const uint16_t PROGMEM wksp8[] = {KC_K, KC_H, COMBO_END};
+const uint16_t PROGMEM wksp7[] = {LSFT_T(KC_V), KC_Z, COMBO_END};
+const uint16_t PROGMEM wksp8[] = {KC_K, RSFT_T(KC_H), COMBO_END};
 //left horizontal combos
 const uint16_t PROGMEM escape[] = {KC_F, KC_P, COMBO_END};
-const uint16_t PROGMEM mouselayer[] = {KC_W, KC_F, LALT_T(KC_R), LCTL_T(KC_S), COMBO_END};
-const uint16_t PROGMEM baselayer[] = {KC_F, KC_P, LCTL_T(KC_S), LSFT_T(KC_T), COMBO_END};
-const uint16_t PROGMEM tab[] = {LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T), COMBO_END};
-const uint16_t PROGMEM dblpgup[] = {KC_C, KC_D, COMBO_END};
-const uint16_t PROGMEM dblpgdn[] = {KC_D, KC_V, COMBO_END};
-const uint16_t PROGMEM quo[] = {LALT_T(KC_R), LSFT_T(KC_T), COMBO_END};
+const uint16_t PROGMEM mouselayer[] = {KC_W, KC_F, KC_R, KC_S, COMBO_END};
+const uint16_t PROGMEM baselayer[] = {KC_F, KC_P, KC_S, KC_T, COMBO_END};
+const uint16_t PROGMEM tab[] = {KC_R, KC_S, KC_T, COMBO_END};
+const uint16_t PROGMEM dblpgup[] = {LALT_T(KC_C), LCTL_T(KC_D), COMBO_END};
+const uint16_t PROGMEM dblpgdn[] = {LCTL_T(KC_D), LSFT_T(KC_V), COMBO_END};
+const uint16_t PROGMEM quo[] = {KC_R, KC_T, COMBO_END};
 //right horizontal combos
-const uint16_t PROGMEM navlayer[] = {KC_U, KC_Y, RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
-const uint16_t PROGMEM enter[] = {RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), COMBO_END};
-//const uint16_t PROGMEM leftWindow[] = {KC_H, KC_COMM, COMBO_END};
-//const uint16_t PROGMEM rightWindow[] = {KC_COMM, KC_DOT, COMBO_END};
-const uint16_t PROGMEM dblquo[] = {RSFT_T(KC_N), RALT_T(KC_I), COMBO_END};
+const uint16_t PROGMEM navlayer[] = {KC_U, KC_Y, KC_E, KC_I, COMBO_END};
+const uint16_t PROGMEM enter[] = {KC_N, KC_E, KC_I, COMBO_END};
+//const uint16_t PROGMEM leftWindow[] = {RSFT_T(KC_H), RCTL_T(KC_COMM), COMBO_END};
+//const uint16_t PROGMEM rightWindow[] = {RCTL_T(KC_COMM), RALT_T(KC_DOT), COMBO_END};
+const uint16_t PROGMEM dblquo[] = {KC_N, KC_I, COMBO_END};
 //both side combos
 const uint16_t PROGMEM numlayer[] = {LT(3,KC_BSPC), LT(3,KC_SPC), COMBO_END};
 combo_t key_combos[] = {
