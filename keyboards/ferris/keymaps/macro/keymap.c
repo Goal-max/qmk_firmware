@@ -475,7 +475,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_split_3x5_2(LT(5,KC_Q), KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U, KC_Y, KC_QUOT, KC_A, KC_R, KC_S, KC_T, KC_G, KC_M, KC_N, KC_E, KC_I, KC_O, LGUI_T(KC_X), LALT_T(KC_C), LCTL_T(KC_D), LSFT_T(KC_V), KC_Z, KC_K, RSFT_T(KC_H), RCTL_T(KC_COMM), RALT_T(KC_DOT), RGUI_T(KC_SLSH), KC_DEL, LT(3,KC_BSPC), LT(3,KC_SPC), TO(4)), 
     [1] = LAYOUT_split_3x5_2(KC_LEFT, KC_UP, KC_DOWN, KC_RGHT, MS_ACL2,
-    CLOSE_TAB, KC_RSFT, ADD_BAR, RALT_T(MS_BTN2), KC_RGUI, KC_LGUI, BASE_R, MS_ACL1,
+    CLOSE_TAB, _______, ADD_BAR, MS_BTN2, _______, _______, BASE_R, MS_ACL1,
     MS_BTN1, BASE_G, _______, MS_LEFT, MS_DOWN, MS_UP, MS_RGHT, LGUI_T(KC_HOME),
     KC_PGUP, KC_PGDN, LSFT_T(KC_END), _______, _______, RSFT_T(MS_WHLL),
     RCTL_T(MS_WHLD), RALT_T(MS_WHLU), RGUI_T(MS_WHLR), _______, _______, _______, _______),
