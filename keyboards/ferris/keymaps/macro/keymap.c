@@ -477,7 +477,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT_split_3x5_2(KC_LEFT, KC_UP, KC_DOWN, KC_RGHT, MS_ACL2,
     CLOSE_TAB, _______, ADD_BAR, MS_BTN2, _______, _______, BASE_R, MS_ACL1,
     MS_BTN1, BASE_G, _______, MS_LEFT, MS_DOWN, MS_UP, MS_RGHT, LGUI_T(KC_HOME),
-    KC_PGUP, KC_PGDN, LSFT_T(KC_END), _______, _______, RSFT_T(MS_WHLL),
+    LALT_T(KC_PGUP), LCTL_T(KC_PGDN), LSFT_T(KC_END), _______, _______, RSFT_T(MS_WHLL),
     RCTL_T(MS_WHLD), RALT_T(MS_WHLU), RGUI_T(MS_WHLR), _______, _______, _______, _______),
     [2] = LAYOUT_split_3x5_2(_______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, KC_LEFT, KC_UP, KC_DOWN,
@@ -485,7 +485,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_VOLU, _______, LGUI_T(KC_HOME), LALT_T(KC_PGUP),
     LCTL_T(KC_PGDN), LSFT_T(KC_END),
     _______, _______, KC_RSFT, KC_RCTL, KC_RALT, KC_RGUI, _______, _______, _______, _______),
-    [3] = LAYOUT_split_3x5_2(KC_GRV, KC_TILD, KC_HASH, KC_AMPR, KC_PIPE, KC_CIRC, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_EXLM, KC_UNDS, KC_COLN, KC_EQL, KC_DLR, KC_AT, KC_LPRN, KC_RPRN, KC_UNDS, KC_SCLN, KC_PERC, KC_QUES, KC_ASTR, KC_PLUS, KC_BSLS, RGUI_T(KC_SLSH), KC_MINS, KC_LT, KC_GT, KC_DQUO, RM_PREV, _______, _______, RM_NEXT),
+    [3] = LAYOUT_split_3x5_2(KC_GRV, KC_TILD, KC_HASH, KC_AMPR, KC_PIPE,
+    KC_CIRC, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_EXLM, KC_UNDS, KC_COLN,
+    KC_EQL, KC_DLR, KC_AT, KC_LPRN, KC_RPRN, KC_UNDS, KC_SCLN, KC_PERC,
+    KC_QUES, KC_ASTR, KC_PLUS, KC_BSLS, KC_SLSH, KC_MINS, KC_LT, KC_GT, KC_DQUO, RM_PREV, _______, _______, RM_NEXT),
     [4] = LAYOUT_split_3x5_2(_______, KC_W, _______, KC_P, KC_B, _______, _______,
     _______, KC_Y, _______, KC_7, KC_5, KC_3, KC_1,
     CAPG, KC_M, KC_2, KC_4, KC_6, KC_8, KC_LGUI,
@@ -523,6 +526,7 @@ const uint16_t PROGMEM escape[] = {KC_F, KC_P, COMBO_END};
 const uint16_t PROGMEM mouselayer[] = {KC_W, KC_F, KC_R, KC_S, COMBO_END};
 const uint16_t PROGMEM baselayer[] = {KC_F, KC_P, KC_S, KC_T, COMBO_END};
 const uint16_t PROGMEM tab[] = {KC_R, KC_S, KC_T, COMBO_END};
+//const uint16_t PROGMEM baselayer[] = {KC_A, KC_R, KC_S, KC_T, COMBO_END};
 const uint16_t PROGMEM dblpgup[] = {LALT_T(KC_C), LCTL_T(KC_D), COMBO_END};
 const uint16_t PROGMEM dblpgdn[] = {LCTL_T(KC_D), LSFT_T(KC_V), COMBO_END};
 const uint16_t PROGMEM quo[] = {KC_R, KC_T, COMBO_END};
@@ -536,7 +540,6 @@ const uint16_t PROGMEM dblquo[] = {KC_N, KC_I, COMBO_END};
 const uint16_t PROGMEM numlayer[] = {LT(3,KC_BSPC), LT(3,KC_SPC), COMBO_END};
 combo_t key_combos[] = {
     COMBO(splitWin, SPL),
-    COMBO(tab, KC_TAB),
     COMBO(enter, KC_ENT), // keycodes with modifiers are possible too!
     COMBO(wksp1, LT(0, WKSP1)),
     COMBO(wksp2, LT(0, WKSP2)),
@@ -548,6 +551,7 @@ combo_t key_combos[] = {
     COMBO(escape, KC_ESC),
     COMBO(mouselayer, TO(1)),
     COMBO(baselayer, TO(0)),
+    COMBO(tab, KC_TAB),
     COMBO(dblpgup, LT(0, PGUP_DBL)), //double page up when held
     COMBO(dblpgdn, LT(0, PGDN_DBL)), //double page down when held
     //left vertical combos
