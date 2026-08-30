@@ -378,11 +378,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true;
 	    break;
     case LowerD: 
-   	  if(record->event.pressed) {
+      if(record->event.pressed) {
         tap_code(KC_D);
         layer_clear();
         return false;
-  	  } 
+      } 
       return true;
 	    break;
       /*
@@ -492,7 +492,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [4] = LAYOUT_split_3x5_2(_______, KC_W, _______, KC_P, KC_B, _______, _______,
     _______, KC_Y, _______, KC_7, KC_5, KC_3, KC_1,
     CAPG, KC_M, KC_2, KC_4, KC_6, KC_8, KC_LGUI,
-    KC_LALT, LCTL_T(LowerD), LSFT_T(KC_9), _______, _______, RSFT_T(KC_0),
+    KC_LALT, LowerD, LSFT_T(KC_9), _______, _______, RSFT_T(KC_0),
     RCTL_T(KC_COMM), RALT_T(KC_DOT), KC_RGUI, _______, _______, _______, _______),
     [5] = LAYOUT_split_3x5_2(_______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______)
 };
