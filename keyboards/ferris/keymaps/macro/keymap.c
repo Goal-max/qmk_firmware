@@ -26,17 +26,16 @@ enum custom_keycodes {
     QUO, // '' with arrow back function when held
     DBLQUO, // "" with arrow back function when held
     PIPE, // || with arrow back function when held
-    CAPG, // G
-    LowerD, // d key for vim
+    CAPG, // G key for vim
     ML, //left mouse
-    SWITCH_TAB, //ctrl + tab
     PREV_TAB, //ctrl + shift + tab
     ADD_BAR, //ctrl l
     BASE_R, //baselayer and pressed letter r for vimium
     BASE_G, //baselayer and press letter g for vimium g (text input)
     //NEW_TAB, //ctrl t
     CLOSE_TAB, //ctrl w
-    UARROW  //up arrow + enter when held
+    UARROW,  //up arrow + enter when held
+    LowerD //lower d + enter key for vim, ctrl when held
 };
 
 //define keycodes for customised tap-hold keys where tap AND hold function is a
@@ -375,39 +374,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_mods(MOD_BIT(KC_RSFT));
         return false;
   	  } 
-      return true;
 	    break;
-    case LowerD: 
-      if(record->event.pressed) {
-        tap_code(KC_D);
-        layer_clear();
-        return false;
-      } 
-      return true;
-	    break;
-      /*
-    case NEW_TAB: 
-   	  if(record->event.pressed) {
-        layer_clear();
-        register_mods(MOD_BIT(KC_RCTL));
-        tap_code(KC_T);
-        unregister_mods(MOD_BIT(KC_RCTL));
-        return false;
-  	  } 
-	    break;
-      */
     case CLOSE_TAB: 
    	  if(record->event.pressed) {
         register_mods(MOD_BIT(KC_RCTL));
         tap_code(KC_W);
-        unregister_mods(MOD_BIT(KC_RCTL));
-        return false;
-  	  } 
-	    break;
-    case SWITCH_TAB: 
-   	  if(record->event.pressed) {
-        register_mods(MOD_BIT(KC_RCTL));
-        tap_code(KC_TAB);
         unregister_mods(MOD_BIT(KC_RCTL));
         return false;
   	  } 
@@ -456,6 +427,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case LCTL_T(LowerD):
+      if(record->tap.count && record->event.pressed) {
+        tap_code(KC_D);
+        tap_code(KC_ENT);
+        layer_clear();
+        return false;
+      }
+      break;
 //below have basic keycodes for tap/hold 
     case EQUAL: 
       return process_tap_or_long_press_key(record, LCTL(KC_Z));
@@ -492,7 +471,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [4] = LAYOUT_split_3x5_2(_______, KC_W, _______, KC_P, KC_B, _______, _______,
     _______, KC_Y, _______, KC_7, KC_5, KC_3, KC_1,
     CAPG, KC_M, KC_2, KC_4, KC_6, KC_8, KC_LGUI,
-    KC_LALT, LowerD, LSFT_T(KC_9), _______, _______, RSFT_T(KC_0),
+    KC_LALT, LCTL_T(LowerD), LSFT_T(KC_9), _______, _______, RSFT_T(KC_0),
     RCTL_T(KC_COMM), RALT_T(KC_DOT), KC_RGUI, _______, _______, _______, _______),
     [5] = LAYOUT_split_3x5_2(_______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______)
 };
