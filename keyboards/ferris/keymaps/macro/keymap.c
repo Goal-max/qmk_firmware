@@ -17,6 +17,8 @@ enum custom_keycodes {
     DN_DBL, //2 page down arrow
     PGUP_DBL, //2 page scroll up, double page up when held
     PGDN_DBL, //2 page scroll down
+    PGUP_TP, //3 page scroll up
+    PGDN_TP, //3 page scroll down
     WKSP1, // workspace 3 function when held
     WKSP2, // workspace 4 function when held
     COLON, // fg + enter function when held
@@ -74,7 +76,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	    }
      	return false;
 	    break;
-    case LT(0, PIPE): 
+    case LT(0, KC_PIPE): 
       if (record->tap.count) {
         if(record->event.pressed) {
 	        SEND_STRING("||" SS_TAP(X_LEFT));
@@ -137,6 +139,75 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         tap_code(KC_PGDN);
         tap_code(KC_PGDN);
         tap_code16(RGUI(KC_LEFT));
+        tap_code(KC_PGDN);
+        tap_code(KC_PGDN);
+      }
+      return false;
+      break;
+    case LT(0, KC_PGUP): //triple page up
+      if (record->tap.count && record->event.pressed) {
+          //if shift pressed, do triple page arrow up
+          if(get_mods() & MOD_BIT(KC_RSFT)) {
+            unregister_mods(MOD_BIT(KC_RSFT));	
+            tap_code(KC_UP);
+            tap_code16(RGUI(KC_LEFT));
+            tap_code(KC_UP);
+            tap_code16(RGUI(KC_LEFT));
+            tap_code(KC_UP);
+            add_mods(MOD_BIT(KC_RSFT));
+            return false;
+          //if no shift pressed
+          } else {
+            tap_code(KC_PGUP);
+            return false;
+          }
+       return false; 
+      //if held
+      } else if (record->event.pressed) {
+        tap_code(KC_PGUP);
+        tap_code(KC_PGUP);
+        tap_code(KC_PGUP);
+        tap_code16(RGUI(KC_LEFT));
+        tap_code(KC_PGUP);
+        tap_code(KC_PGUP);
+        tap_code(KC_PGUP);
+        tap_code16(RGUI(KC_LEFT));
+        tap_code(KC_PGUP);
+        tap_code(KC_PGUP);
+        tap_code(KC_PGUP);
+      }
+      return false;
+      break;
+    case LT(0, KC_PGDN): //triple page down
+      if (record->tap.count) {
+        if (record->event.pressed) {
+          //if shift pressed, do triple page arrow down
+          if(get_mods() & MOD_BIT(KC_RSFT)) {
+            unregister_mods(MOD_BIT(KC_RSFT));	
+            tap_code(KC_DOWN);
+            tap_code16(RGUI(KC_LEFT));
+            tap_code(KC_DOWN);
+            tap_code16(RGUI(KC_LEFT));
+            tap_code(KC_DOWN);
+            add_mods(MOD_BIT(KC_RSFT));
+            return false;
+          //if no shift pressed
+          } else {
+            tap_code(KC_PGDN);
+            return false;
+          }
+        }
+      //if held
+      } else if (record->event.pressed) {
+        tap_code(KC_PGDN);
+        tap_code(KC_PGDN);
+        tap_code(KC_PGDN);
+        tap_code16(RGUI(KC_LEFT));
+        tap_code(KC_PGDN);
+        tap_code(KC_PGDN);
+        tap_code(KC_PGDN);
+        tap_code16(RGUI(KC_LEFT));
+        tap_code(KC_PGDN);
         tap_code(KC_PGDN);
         tap_code(KC_PGDN);
       }
@@ -313,7 +384,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } 
       return false;
       break;
-    case LT(0, CUR):
+    case LT(0, KC_N):
       if (record->tap.count) {
         if(record->event.pressed) {
 	        SEND_STRING("{}" SS_TAP(X_LEFT));
@@ -353,7 +424,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } 
       return false;
       break;
-    case LT(0, DBLQUO): 
+    case LT(0, KC_QUOT): 
       if (record->tap.count) {
         if(record->event.pressed) {
 	        SEND_STRING("\"\"" SS_TAP(X_LEFT));
@@ -440,7 +511,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return process_tap_or_long_press_key(record, LCTL(KC_Z));
       return false;
       break;
-    case RARROW: 
+    case LT(0, KC_RGHT): 
       return process_tap_or_long_press_key(record, LALT(KC_RGHT));
       break;
     case LARROW:
@@ -504,7 +575,9 @@ const uint16_t PROGMEM wksp8[] = {KC_K, RSFT_T(KC_H), COMBO_END};
 const uint16_t PROGMEM escape[] = {KC_F, KC_P, COMBO_END};
 const uint16_t PROGMEM mouselayer[] = {KC_W, KC_F, KC_R, KC_S, COMBO_END};
 const uint16_t PROGMEM baselayer[] = {KC_F, KC_P, KC_S, KC_T, COMBO_END};
+const uint16_t PROGMEM tplpgup[] = {KC_W, KC_F, KC_P, COMBO_END};
 const uint16_t PROGMEM tab[] = {KC_R, KC_S, KC_T, COMBO_END};
+const uint16_t PROGMEM tplpgdn[] = {LALT_T(KC_C), LCTL_T(KC_D), LSFT_T(KC_V), COMBO_END};
 //const uint16_t PROGMEM baselayer[] = {KC_A, KC_R, KC_S, KC_T, COMBO_END};
 const uint16_t PROGMEM dblpgup[] = {LALT_T(KC_C), LCTL_T(KC_D), COMBO_END};
 const uint16_t PROGMEM dblpgdn[] = {LCTL_T(KC_D), LSFT_T(KC_V), COMBO_END};
@@ -530,25 +603,27 @@ combo_t key_combos[] = {
     COMBO(escape, KC_ESC),
     COMBO(mouselayer, TO(1)),
     COMBO(baselayer, TO(0)),
+    COMBO(tplpgup, LT(0, KC_PGUP)),
     COMBO(tab, KC_TAB),
+    COMBO(tplpgdn, LT(0, KC_PGDN)),
     COMBO(dblpgup, LT(0, PGUP_DBL)), //double page up when held
     COMBO(dblpgdn, LT(0, PGDN_DBL)), //double page down when held
     //left vertical combos
     COMBO(uarrow, LT(0, UARROW)),
     COMBO(darrow, KC_DOWN),
-    COMBO(pipe, LT(0, PIPE)),
+    COMBO(pipe, LT(0, KC_PIPE)),
     COMBO(colon, LT(0, COLON)),
     COMBO(equal, EQUAL),
     //right horizontal combos
     COMBO(numlayer, TO(4)),
     COMBO(quo, LT(0, QUO)),
-    COMBO(dblquo, LT(0, DBLQUO)),
+    COMBO(dblquo, LT(0, KC_QUOT)),
     COMBO(navlayer, TO(2)),
     //right vertical combos
     COMBO(larrow, LARROW), //hold causes alt + left arrow
-    COMBO(rarrow, RARROW), //hold causes alt + right arrow
+    COMBO(rarrow, LT(0, KC_RGHT)), //hold causes alt + right arrow
     COMBO(par, LT(0, PAR)),
-    COMBO(cur, LT(0, CUR)),
+    COMBO(cur, LT(0, KC_N)),
     COMBO(squ, LT(0, SQU)),
     
 };
