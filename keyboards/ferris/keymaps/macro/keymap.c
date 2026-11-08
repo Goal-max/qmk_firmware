@@ -45,7 +45,6 @@ enum custom_keycodes {
 //same kc in the list - create custom kc in enum to have unique values but this
 //would be more messy defining 2 variables. Better to put LT(0, <enum>) in combo
 //list, where enum is custom keycode in enum list.
-#define RARROW LT(0, KC_RGHT) //alt + right arrow when held
 #define LARROW LT(0, KC_LEFT) //alt + left arrow when held
 #define EQUAL     LT(0, KC_EQL)   // ctrl + z function when held
  
@@ -159,22 +158,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           //if no shift pressed
           } else {
             tap_code(KC_PGUP);
+            tap_code(KC_PGUP);
+            tap_code(KC_PGUP);
+            tap_code16(RGUI(KC_LEFT));
+            tap_code(KC_PGUP);
+            tap_code(KC_PGUP);
+            tap_code(KC_PGUP);
+            tap_code16(RGUI(KC_LEFT));
+            tap_code(KC_PGUP);
+            tap_code(KC_PGUP);
+            tap_code(KC_PGUP);
             return false;
           }
        return false; 
       //if held
       } else if (record->event.pressed) {
-        tap_code(KC_PGUP);
-        tap_code(KC_PGUP);
-        tap_code(KC_PGUP);
-        tap_code16(RGUI(KC_LEFT));
-        tap_code(KC_PGUP);
-        tap_code(KC_PGUP);
-        tap_code(KC_PGUP);
-        tap_code16(RGUI(KC_LEFT));
-        tap_code(KC_PGUP);
-        tap_code(KC_PGUP);
-        tap_code(KC_PGUP);
+        tap_code(KC_HOME);
+        tap_code16(RGUI(KC_RGHT));
+        tap_code16(KC_HOME);
+        tap_code(KC_PGDN);
+        tap_code16(RGUI(KC_RGHT));
+        tap_code16(KC_HOME);
+        tap_code16(KC_PGDN);
+        tap_code16(KC_PGDN);
+        tap_code16(RGUI(KC_RGHT));
       }
       return false;
       break;
@@ -194,22 +201,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           //if no shift pressed
           } else {
             tap_code(KC_PGDN);
+            tap_code(KC_PGDN);
+            tap_code(KC_PGDN);
+            tap_code16(RGUI(KC_LEFT));
+            tap_code(KC_PGDN);
+            tap_code(KC_PGDN);
+            tap_code(KC_PGDN);
+            tap_code16(RGUI(KC_LEFT));
+            tap_code(KC_PGDN);
+            tap_code(KC_PGDN);
+            tap_code(KC_PGDN);
             return false;
           }
         }
       //if held
       } else if (record->event.pressed) {
-        tap_code(KC_PGDN);
-        tap_code(KC_PGDN);
-        tap_code(KC_PGDN);
-        tap_code16(RGUI(KC_LEFT));
-        tap_code(KC_PGDN);
-        tap_code(KC_PGDN);
-        tap_code(KC_PGDN);
-        tap_code16(RGUI(KC_LEFT));
-        tap_code(KC_PGDN);
-        tap_code(KC_PGDN);
-        tap_code(KC_PGDN);
+        tap_code(KC_END);
+        tap_code(KC_PGUP);
+        tap_code(KC_PGUP);
+        tap_code16(RGUI(KC_RGHT));
+        tap_code(KC_END);
+        tap_code(KC_PGUP);
+        tap_code16(RGUI(KC_RGHT));
+        tap_code(KC_END);
+        tap_code16(RGUI(KC_RGHT));
       }
       return false;
       break;
