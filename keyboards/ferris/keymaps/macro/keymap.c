@@ -153,6 +153,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code(KC_UP);
             tap_code16(RGUI(KC_LEFT));
             tap_code(KC_UP);
+            tap_code16(RGUI(KC_LEFT));
             add_mods(MOD_BIT(KC_RSFT));
             return false;
           //if no shift pressed
@@ -168,6 +169,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code(KC_PGUP);
             tap_code(KC_PGUP);
             tap_code(KC_PGUP);
+            tap_code16(RGUI(KC_LEFT));
             return false;
           }
        return false; 
@@ -196,6 +198,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code(KC_DOWN);
             tap_code16(RGUI(KC_LEFT));
             tap_code(KC_DOWN);
+            tap_code16(RGUI(KC_LEFT));
             add_mods(MOD_BIT(KC_RSFT));
             return false;
           //if no shift pressed
@@ -211,6 +214,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code(KC_PGDN);
             tap_code(KC_PGDN);
             tap_code(KC_PGDN);
+            tap_code16(RGUI(KC_LEFT));
             return false;
           }
         }
